@@ -1,0 +1,224 @@
+local SCRIPT_ID = "UniqueScriptIdentifier"
+
+-- Check if the script is already running
+if game:GetService("Players").LocalPlayer:FindFirstChild(SCRIPT_ID) then
+    return
+end
+
+-- Mark script as running
+local marker = Instance.new("BoolValue")
+marker.Name = SCRIPT_ID
+marker.Parent = game.Players.LocalPlayer
+
+-- Creating GUI elements
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.ResetOnSpawn = false  -- Prevent GUI from resetting on player respawn
+
+local MainFrame = Instance.new("Frame")
+local InputBox = Instance.new("TextBox")
+local ChatButton = Instance.new("TextButton")
+local Title = Instance.new("TextLabel")
+local Footer = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
+local OpenButton = Instance.new("TextButton")
+
+-- UICorner for rounded corners
+local function addUICorner(element, radius)
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(radius, 0)
+    UICorner.Parent = element
+end
+
+-- Parent GUI to the Player's PlayerGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- MainFrame properties
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(35, 39, 42)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
+MainFrame.Size = UDim2.new(0, 280, 0, 200)  -- Reduced size
+MainFrame.BackgroundTransparency = 0.5
+addUICorner(MainFrame, 0.1)  -- Rounded corners
+
+-- Title properties
+Title.Parent = MainFrame
+Title.BackgroundColor3 = Color3.fromRGB(25, 27, 29)
+Title.BackgroundTransparency = 0.5
+Title.Size = UDim2.new(0.7, 0, 0.2, 0)  -- Adjusted size for a smaller frame
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Chat Bypass by Menace 🇵🇭"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.TextSize = 14
+addUICorner(Title, 0.1)
+
+-- CloseButton properties
+CloseButton.Parent = MainFrame
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+CloseButton.Size = UDim2.new(0.3, 0, 0.2, 0)  -- Adjusted size to match the title height
+CloseButton.Position = UDim2.new(0.7, 0, 0, 0)  -- Positioned to the right of the title
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextScaled = true
+addUICorner(CloseButton, 0.2)
+
+-- InputBox properties
+InputBox.Parent = MainFrame
+InputBox.BackgroundColor3 = Color3.fromRGB(45, 49, 52)
+InputBox.BackgroundTransparency = 0.5
+InputBox.Size = UDim2.new(0.9, 0, 0.3, 0)
+InputBox.Position = UDim2.new(0.05, 0, 0.25, 0)  -- Adjusted position for smaller frame
+InputBox.Font = Enum.Font.Gotham
+InputBox.PlaceholderText = "Here bro🦅🗣️🔥"
+InputBox.Text = ""
+InputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+InputBox.TextScaled = true
+InputBox.ClearTextOnFocus = true
+addUICorner(InputBox, 0.1)
+
+-- ChatButton properties
+ChatButton.Parent = MainFrame
+ChatButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
+ChatButton.Size = UDim2.new(0.6, 0, 0.2, 0)
+ChatButton.Position = UDim2.new(0.2, 0, 0.6, 0)  -- Adjusted position for smaller frame
+ChatButton.Font = Enum.Font.GothamBold
+ChatButton.Text = "Gawk"
+ChatButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ChatButton.TextScaled = true
+addUICorner(ChatButton, 0.2)
+
+-- Footer properties
+Footer.Parent = MainFrame
+Footer.BackgroundColor3 = Color3.fromRGB(25, 27, 29)
+Footer.BackgroundTransparency = 0.7
+Footer.Size = UDim2.new(1, 0, 0.1, 0)
+Footer.Position = UDim2.new(0, 0, 0.9, 0)  -- Adjusted position for smaller frame
+Footer.Font = Enum.Font.Gotham
+Footer.Text = "https://youtube.com/@menace_on_top_fr?si=o4D3BucD8h5jEQwU"
+Footer.TextColor3 = Color3.fromRGB(255, 85, 85)
+Footer.TextScaled = true
+addUICorner(Footer, 0.1)
+
+-- OpenButton properties (Initially hidden)
+OpenButton.Parent = ScreenGui
+OpenButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
+OpenButton.Size = UDim2.new(0, 40, 0, 40)  -- Smaller size
+OpenButton.Position = UDim2.new(0.01, 0, 0.3, 0)
+OpenButton.Font = Enum.Font.GothamBold
+OpenButton.Text = ">"
+OpenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+OpenButton.TextScaled = true
+OpenButton.Visible = false
+addUICorner(OpenButton, 0.5)  -- Fully rounded button
+
+-- Font map
+local fontMap = {
+    ['a'] = 'а￴￴', ['b'] = 'b', ['c'] = 'с￴￴￴￴￴￴￴￴￴￴￴', ['d'] = 'd', ['e'] = 'е￴￴￴￴', ['f'] = '￴f￴￴￴￴￴', ['g'] = 'g￴￴￴￴￴',
+    ['h'] = 'һ￴', ['i'] = 'і￴', ['j'] = 'j', ['k'] = 'k', ['l'] = 'ӏ', ['m'] = 'm￴', ['n'] = 'n￴￴',
+    ['o'] = 'о￴', ['p'] = 'р￴￴￴', ['q'] = 'q', ['r'] = 'r', ['s'] = 'ѕ', ['t'] = 't', ['u'] = 'u￴￴￴',
+    ['v'] = 'v', ['w'] = 'w￴', ['x'] = 'x', ['y'] = '￴у', ['z'] = 'z￴￴￴￴',
+    ['A'] = 'А￴', ['B'] = 'В', ['C'] = 'С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴', ['D'] = 'D￴', ['E'] = 'Е￴', ['F'] = 'F￴￴￴￴', ['G'] = 'G￴',
+    ['H'] = 'Н￴', ['I'] = 'Ӏ￴', ['J'] = 'J', ['K'] = 'К', ['L'] = 'L', ['M'] = 'М', ['N'] = 'N￴',
+    ['O'] = 'О￴', ['P'] = 'Р￴', ['Q'] = 'Q', ['R'] = 'R￴', ['S'] = 'Ѕ', ['T'] = 'Т￴', ['U'] = 'U￴',
+    ['V'] = 'V￴', ['W'] = 'W￴', ['X'] = 'X', ['Y'] = 'Y', ['Z'] = 'Z',
+    [' '] = '' -- Convert space to special character
+}
+
+-- Transform function
+local function transformText(input)
+    local output = ""
+    for i = 1, #input do
+        local char = input:sub(i, i)
+        output = output .. (fontMap[char] or char)
+    end
+    return output
+end
+
+-- Clipboard function
+local function copyToClipboard(text)
+    if setclipboard then
+        setclipboard(text)
+    elseif toclipboard then
+        toclipboard(text)
+    else
+        warn("Clipboard function not supported.")
+    end
+end
+
+-- Chat Button action (modified to include clipboard functionality)
+local function sendMessage()
+    local transformedText = transformText(InputBox.Text)
+    
+    -- Send the transformed message to chat
+    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(transformedText, "All")
+    
+    -- Copy the transformed message to the clipboard
+    copyToClipboard(transformedText)
+end
+
+-- Connect the Gawk button to the sendMessage function
+ChatButton.MouseButton1Click:Connect(sendMessage)
+
+
+-- Handle Enter key press in the TextBox
+InputBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        sendMessage()
+    end
+end)
+
+-- Close and Open Button actions
+CloseButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    OpenButton.Visible = true
+end)
+
+OpenButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = true
+    OpenButton.Visible = false
+end)
+
+-- Draggable functionality
+local function makeDraggable(guiObject, delayTime)
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        -- Add delay here
+        wait(delayTime)  -- This adds the delay
+        guiObject.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    guiObject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = guiObject.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    guiObject.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
+end
+
+-- Example usage: make the GUI draggable with a 0.1-second delay
+makeDraggable(MainFrame, 0.1)
