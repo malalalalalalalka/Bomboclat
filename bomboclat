@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://paste.ee/r/E9tFZ/0')))()
 
-function loaded()
+function loading()
     OrionLib:MakeNotification({
         Name = "Successfully executed Menace Hub!",
         Content = "Loading...",
@@ -16,6 +16,14 @@ function alrexe()
         Time = 5
     })
 end
+function loaded()
+    OrionLib:MakeNotification({
+        Name = "Successfully executed Menace Hub!",
+        Content = "Loaded!",
+        Image = "rbxassetid://119780129386155",
+        Time = 5
+    })
+end
 
 if _G.MenaceHub then
     alrexe()
@@ -23,7 +31,7 @@ if _G.MenaceHub then
 end
 
 _G.MenaceHub = true
-
+loading()
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "Open And Close Button"
 local Frame = Instance.new("Frame")
@@ -112,7 +120,7 @@ UIS.InputChanged:Connect(function(input)
     end
 end)
 
-loaded()
+
 
 function DescText(newText)
     local args = {
@@ -125,6 +133,8 @@ function DescText(newText)
 
     game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
 end
+wait(2)
+loaded()
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
 local Window = Library.CreateLib("Menace Hub", "DarkTheme")
