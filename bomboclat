@@ -128,15 +128,55 @@ end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
 local Window = Library.CreateLib("Menace Hub", "DarkTheme")
-local Tab = Window:NewTab("Scripts")
-local Section = Tab:NewSection("Test")
+local Tab = Window:NewTab("Menace Scripts")
+local Section = Tab:NewSection("Trolling Scripts")
+
+Section:NewButton("Sus Missile (Head Bang)", "Run Sus Missile Headbang", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    print("Clicked")
+end)
 
 Section:NewButton("Infinite Yield", "Run Infinite Yield", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
     print("Clicked")
 end)
 
-local Tab = Window:NewTab("Rate My Avatar")
+local Tab = Window:NewTab("Rate My Avatar Trolling Booth")
+local Section = Tab:NewSection("Trolling Booth")
+Section:NewButton("Blacklist All", "Blacklist all players", function()
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local function addToBlacklist(player)
+        if player ~= LocalPlayer then
+            local args = {
+                [1] = "AddBlacklist",
+                [2] = player.Name
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+        end
+    end
+
+    local function checkForNewPlayers()
+        while true do
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    addToBlacklist(player)
+                end
+            end
+            wait(1)
+        end
+    end
+
+    Players.PlayerAdded:Connect(function(player)
+        wait(1)
+        addToBlacklist(player)
+    end)
+
+    checkForNewPlayers()
+    end)
+
+local Tab = Window:NewTab("Rate My Avatar Bypass Booth")
 local Section = Tab:NewSection("Bypass Booth")
 Section:NewButton("Selling Sex Slaves", "Hehehehe", function()
     DescText("Selling￴￴￴￴ѕе￴￴￴￴xѕӏа￴￴vе￴￴￴￴ѕ￴f￴￴￴o￴r f￴ree (Stay behind to get sold)😋")
@@ -168,7 +208,6 @@ end)
 Section:NewButton("Name", "Info", function()
     DescText("")
 end)
-
 
 Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
     Library:ToggleUI()
