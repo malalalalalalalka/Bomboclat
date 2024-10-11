@@ -508,6 +508,58 @@ function DescText(newText)
     game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
 end
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local blacklisting = false
+
+-- Function to add a player to the blacklist
+local function addToBlacklist(player)
+    if player ~= LocalPlayer then
+        local args = {
+            [1] = "AddBlacklist",
+            [2] = player.Name
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+    end
+end
+
+-- Function to remove a player from the blacklist
+local function removeFromBlacklist(player)
+    if player ~= LocalPlayer then
+        local args = {
+            [1] = "RemoveBlacklist",
+            [2] = player.Name
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+    end
+end
+
+-- Function to blacklist all players and any new players that join
+local function blacklistAll()
+    blacklisting = true
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            addToBlacklist(player)
+        end
+    end
+    
+    Players.PlayerAdded:Connect(function(player)
+        if blacklisting and player ~= LocalPlayer then
+            addToBlacklist(player)
+        end
+    end)
+end
+
+-- Function to unblacklist all players and stop continuous blacklisting
+local function unblacklistAll()
+    blacklisting = false
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            removeFromBlacklist(player)
+        end
+    end
+end
+
 loaded()
 wait(1)
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
@@ -531,69 +583,11 @@ Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, functi
     Library:ToggleUI()
 end)
 Section:NewButton("Blacklist All", "Blacklist all players", function()
-    local Players = game:GetService("Players")
-    local LocalPlayer = Players.LocalPlayer
-
-    local function addToBlacklist(player)
-        if player ~= LocalPlayer then
-            local args = {
-                [1] = "AddBlacklist",
-                [2] = player.Name
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-        end
-    end
-
-    local function checkForNewPlayers()
-        while true do
-            for _, player in ipairs(Players:GetPlayers()) do
-                if player ~= LocalPlayer then
-                    addToBlacklist(player)
-                end
-            end
-            wait(1)
-        end
-    end
-
-    Players.PlayerAdded:Connect(function(player)
-        wait(0.1)
-        addToBlacklist(player)
-    end)
-
-    checkForNewPlayers()
-    end)
+    blacklistAll()
+end)
 
 Section:NewButton("Unblacklist All", "Unblacklist all players", function()
-    local Players = game:GetService("Players")
-	local LocalPlayer = Players.LocalPlayer
-
-	local function removeFromBlacklist(player)
-  	  if player ~= LocalPlayer then
-     	   local args = {
-      	      [1] = "RemoveBlacklist",
-      	      [2] = player.Name
-      	  }
-      	  game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-  	  end
-	end
-
-	local function checkForNewPlayers()
-   	 while true do
-    	    for _, player in ipairs(Players:GetPlayers()) do
-        	    if player ~= LocalPlayer then
-            	    removeFromBlacklist(player)
-            	end
-        	end
-	        wait(1)
-	    end
-	end
-
-	Players.PlayerAdded:Connect(function(player)
-    	wait(0.1)
-    	removeFromBlacklist(player)
-	end)
-
-	checkForNewPlayers()
+    unblacklistAll()
 end)
-wait(1.5)
+wait(1)
 settoggle()
