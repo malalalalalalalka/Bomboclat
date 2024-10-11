@@ -32,7 +32,7 @@ end
 
 _G.MenaceHub = true
 loading()
-
+wait(2)
 local function settoggle()
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "Open And Close Button"
@@ -134,7 +134,7 @@ function DescText(newText)
 end
 
 loaded()
-
+wait(1)
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
 local Window = Library.CreateLib("Menace Hub", "DarkTheme")
 local Tab = Window:NewTab("Menace Scripts")
@@ -187,5 +187,5 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
 
     checkForNewPlayers()
     end)
-wait(1)
+wait(1.5)
 settoggle()
