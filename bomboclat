@@ -535,14 +535,13 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
     local LocalPlayer = Players.LocalPlayer
 
     local function addToBlacklist(player)
-        if player ~= LocalPlayer then
-            local args = {
-                [1] = "AddBlacklist",
-                [2] = player.Name
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-        end
+        local args = {
+            [1] = "AddBlacklist",
+            [2] = player.Name
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
     end
+end
 
     local function checkForNewPlayers()
         while true do
@@ -563,12 +562,11 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
     checkForNewPlayers()
     end)
 
-Section:NewButton("Blacklist All", "Blacklist all players", function()
+Section:NewButton("Unblacklist All", "Unblacklist all players", function()
     local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+    local LocalPlayer = Players.LocalPlayer
 
-local function removeFromBlacklist(player)
-    if player ~= LocalPlayer then
+    local function removeFromBlacklist(player)
         local args = {
             [1] = "RemoveBlacklist",
             [2] = player.Name
