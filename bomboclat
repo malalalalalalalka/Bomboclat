@@ -556,7 +556,7 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
     end
 
     Players.PlayerAdded:Connect(function(player)
-        wait(1)
+        wait(0.1)
         addToBlacklist(player)
     end)
 
@@ -589,7 +589,7 @@ Section:NewButton("Unblacklist All", "Unblacklist all players", function()
 	end
 
 	Players.PlayerAdded:Connect(function(player)
-    	wait(1)
+    	wait(0.1)
     	removeFromBlacklist(player)
 	end)
 
