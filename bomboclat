@@ -164,7 +164,7 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
 	local UICorner_5 = Instance.new("UICorner")
 	local ImageButton = Instance.new("ImageButton")
 	local UICorner_6 = Instance.new("UICorner")
-	local TextBox = Instance.new("TextBox")
+	local textbox1 = Instance.new("")TextBox
 	local UICorner_7 = Instance.new("UICorner")
 	local ad = Instance.new("TextButton")
 	local UICorner_8 = Instance.new("UICorner")
@@ -268,22 +268,22 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
 	
 	UICorner_6.Parent = ImageButton
 	
-	TextBox.Parent = Frame_3
-	TextBox.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
-	TextBox.BorderColor3 = Color3.new(0, 0, 0)
-	TextBox.BorderSizePixel = 0
-	TextBox.Position = UDim2.new(0.0500000007, 0, 0.25, 0)
-	TextBox.Size = UDim2.new(0, 209, 0, 35)
-	TextBox.Font = Enum.Font.SourceSans
-	TextBox.PlaceholderColor3 = Color3.new(0.52549, 0.52549, 0.52549)
-	TextBox.PlaceholderText = "Target Someone (type name)"
-	TextBox.Text = ""
-	TextBox.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
-	TextBox.TextScaled = true
-	TextBox.TextSize = 14
-	TextBox.TextWrapped = true
+	tb1.Parent = Frame_3
+	tb1.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	tb1.BorderColor3 = Color3.new(0, 0, 0)
+	tb1.BorderSizePixel = 0
+	tb1.Position = UDim2.new(0.0500000007, 0, 0.25, 0)
+	tb1.Size = UDim2.new(0, 209, 0, 35)
+	tb1.Font = Enum.Font.SourceSans
+	tb1.PlaceholderColor3 = Color3.new(0.52549, 0.52549, 0.52549)
+	tb1.PlaceholderText = "Target Someone (type name)"
+	tb1.Text = ""
+	tb1.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	tb1.TextScaled = true
+	tb1.TextSize = 14
+	tb1.TextWrapped = true
 	
-	UICorner_7.Parent = TextBox
+	UICorner_7.Parent = tb1
 	
 	ad.Name = "ad"
 	ad.Parent = Frame_3
@@ -362,25 +362,25 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
     end
     
     local function autoComplete()
-        local inputText = TextBox.Text
+        local inputText = tb1.Text
         local matches = scanPlayers(inputText)
     
         if #matches == 1 then
-            TextBox.Text = matches[1]
-            TextBox.SelectionStart = #TextBox.Text -- Keep the cursor at the end of the text
-            TextBox.TextEditable = true
+            tb1.Text = matches[1]
+            tb1.SelectionStart = #tb1.Text -- Keep the cursor at the end of the text
+            tb1.TextEditable = true
         else
-            TextBox.TextEditable = true
+            tb1.TextEditable = true
         end
     end
     
-    TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+    tb1:GetPropertyChangedSignal("Text"):Connect(function()
         autoComplete()
     end)
     
-    TextBox.FocusLost:Connect(function(enterPressed)
+    tb1.FocusLost:Connect(function(enterPressed)
         if enterPressed then
-            local targetUsername = TextBox.Text
+            local targetUsername = tb1.Text
             if Players:FindFirstChild(targetUsername) then
                 print("Target player found: " .. targetUsername)
             else
@@ -769,8 +769,8 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
 		end)
 	end
 	coroutine.wrap(WVDCLZ_fake_script)()
-	local function COWU_fake_script() -- TextBox.LocalScript 
-		local script = Instance.new('LocalScript', TextBox)
+	local function COWU_fake_script() -- tb1.LocalScript 
+		local script = Instance.new('LocalScript', tb1)
 	
 	
 	end
@@ -812,7 +812,7 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
 			local targetPositionBackup
 			local originalPosition -- Variable to store the original position
 	
-			local textbox = script.Parent:WaitForChild("TextBox") -- Replace with the path to your TextBox
+			local textbox = script.Parent:WaitForChild("tb1") -- Replace with the path to your tb1
 			local enterButton = script.Parent:WaitForChild("ad") -- Replace with the path to your Enter Button
 	
 			local isChatting = false
