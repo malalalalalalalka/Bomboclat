@@ -31,6 +31,96 @@ if _G.MenaceHub then
 end
 
 _G.MenaceHub = true
+loading()
+
+local function settoggle()
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "Open And Close Button"
+    local Frame = Instance.new("Frame")
+    local TextButton = Instance.new("TextButton")
+    local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+    local UICorner = Instance.new("UICorner")
+
+    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    ScreenGui.ResetOnSpawn = false
+
+    Frame.Parent = ScreenGui
+    Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Frame.BackgroundTransparency = 0.5
+    Frame.Position = UDim2.new(0.5, -50, 0.5, -25)
+    Frame.Size = UDim2.new(0, 100, 0, 50)
+
+    UICorner.Parent = Frame
+
+    TextButton.Parent = Frame
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 1.0
+    TextButton.Size = UDim2.new(1, 0, 1, 0)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = "Close"
+    TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+    TextButton.TextScaled = true
+    TextButton.TextSize = 30.000
+    TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextStrokeTransparency = 0.5
+    TextButton.TextWrapped = true
+
+    TextButton.MouseButton1Down:Connect(function()
+        if TextButton.Text == "Close" then
+            TextButton.Text = "Open"
+            TextButton.TextColor3 = Color3.fromRGB(0, 255, 0)
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
+        else
+            TextButton.Text = "Close"
+            TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
+        end
+    end)
+
+    UITextSizeConstraint.Parent = TextButton
+    UITextSizeConstraint.MaxTextSize = 30
+
+    local UIS = game:GetService("UserInputService")
+
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    TextButton.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = Frame.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    TextButton.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    UIS.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
+end
+
+
 function DescText(newText)
     local args = {
         [1] = "Update",
@@ -42,6 +132,7 @@ function DescText(newText)
 
     game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
 end
+
 loaded()
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
@@ -61,6 +152,11 @@ end)
 
 local Tab = Window:NewTab("RMA Trolling Booth")
 local Section = Tab:NewSection("Trolling Booth")
+Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
+    Library:ToggleUI()
+end)
+wait(1)
+settoggle()
 Section:NewButton("Blacklist All", "Blacklist all players", function()
     local Players = game:GetService("Players")
     local LocalPlayer = Players.LocalPlayer
@@ -91,97 +187,5 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
         addToBlacklist(player)
     end)
 
-Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
-    Library:ToggleUI()
-end)
-
     checkForNewPlayers()
-    end)
-    wait(1)
-    local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "Open And Close Button"
-    local Frame = Instance.new("Frame")
-    local TextButton = Instance.new("TextButton")
-    local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
-    local UICorner = Instance.new("UICorner")
-    
-    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    ScreenGui.ResetOnSpawn = false
-    
-    Frame.Parent = ScreenGui
-    Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    Frame.BackgroundTransparency = 0.5
-    Frame.Position = UDim2.new(0.5, -50, 0.5, -25)
-    Frame.Size = UDim2.new(0, 100, 0, 50)
-    
-    UICorner.Parent = Frame
-    
-    TextButton.Parent = Frame
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 1.0
-    TextButton.Size = UDim2.new(1, 0, 1, 0)
-    TextButton.Font = Enum.Font.SourceSans
-    TextButton.Text = "Close"  -- Initial text
-    TextButton.TextColor3 = Color3.fromRGB(255, 0, 0) -- Initial color for "Close"
-    TextButton.TextScaled = true
-    TextButton.TextSize = 30.000
-    TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton.TextStrokeTransparency = 0.5
-    TextButton.TextWrapped = true
-    
-    -- Functionality for the button
-    TextButton.MouseButton1Down:Connect(function()
-        if TextButton.Text == "Close" then
-            TextButton.Text = "Open"
-            TextButton.TextColor3 = Color3.fromRGB(0, 255, 0) -- Change to green for "Open"
-            -- Logic for "Close" action
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
-        else
-            TextButton.Text = "Close"
-            TextButton.TextColor3 = Color3.fromRGB(255, 0, 0) -- Change to red for "Close"
-            -- Logic for "Open" action
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
-        end
-    end)
-    
-    UITextSizeConstraint.Parent = TextButton
-    UITextSizeConstraint.MaxTextSize = 30
-    
-    local UIS = game:GetService("UserInputService")
-    
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
-    
-    local function update(input)
-        local delta = input.Position - dragStart
-        Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-    
-    TextButton.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = Frame.Position
-    
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
-    
-    TextButton.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end)
-    
-    UIS.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
     end)
