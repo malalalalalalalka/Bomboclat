@@ -611,7 +611,7 @@ local function stopBlacklist()
 end
 
 loaded()
-wait(1)
+wait(0.5)
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
 local Window = Library.CreateLib("Menace Hub", "DarkTheme")
 local Tab = Window:NewTab("Menace Scripts")
