@@ -650,5 +650,15 @@ end)
 Section:NewButton("Unblacklist All", "Unblacklist all players", function()
     unblacklistAll()
 end)
+Section:NewButton("Destroy Stage Barrier", "Destroy Stage Barrier.", function()
+    local part = workspace:FindFirstChild("GroupAccessPart")
+
+    if part then
+        part:Destroy()
+        print("Stage barrier has been destroyed.")
+    else
+        print("Stage barrier has already been destroyed.")
+    end
+end)
 wait(1)
 settoggle()
