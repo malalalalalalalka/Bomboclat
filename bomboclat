@@ -382,7 +382,44 @@ function loading()
         Image = "rbxassetid://119780129386155",
         Time = 5
     })
-end   
+end
+
+function blacklistallplrs()
+    OrionLib:MakeNotification({
+        Name = "All players has been blacklisted.",
+        Content = "Executed!",
+        Image = "rbxassetid://119780129386155",
+        Time = 3
+    })
+end
+
+function unblacklistallplrs()
+    OrionLib:MakeNotification({
+        Name = "All players has been unblacklisted.",
+        Content = "Executed!",
+        Image = "rbxassetid://119780129386155",
+        Time = 3
+    })
+end
+
+function fakeblacklistallplrs()
+    OrionLib:MakeNotification({
+        Name = "All players has been blacklisted(FAKE)!",
+        Content = "Executed!",
+        Image = "rbxassetid://119780129386155",
+        Time = 3
+    })
+end
+
+function fakeunblacklistallplrs()
+    OrionLib:MakeNotification({
+        Name = "All players has been unblacklisted(FAKE)!",
+        Content = "Executed!",
+        Image = "rbxassetid://119780129386155",
+        Time = 3
+    })
+end
+
 function alrexe()
     OrionLib:MakeNotification({
         Name = "Error.",
@@ -637,17 +674,21 @@ Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, functi
     Library:ToggleUI()
 end)
 Section:NewButton("FE Fake Blacklist All", "Fe Fake Blacklist All Players", function()
+    fakeblacklistallplrs()
     startBlacklist()
 end)
 
 Section:NewButton("FE Fake Unblacklist All", "FE Fake Unblacklist All Players", function()
+    fakeunblacklistallplrs()
     stopBlacklist()
 end)
 Section:NewButton("Blacklist All", "Blacklist all players", function()
+    blacklistallplrs()
     blacklistAll()
 end)
 
 Section:NewButton("Unblacklist All", "Unblacklist all players", function()
+    unblacklistallplrs()
     unblacklistAll()
 end)
 Section:NewButton("Destroy Stage Barrier", "Destroy Stage Barrier.", function()
