@@ -1,4 +1,3 @@
--- Table for mapping country codes to full country names with emojis
 local countryNames = {
     ["AF"] = "Afghanistan 🇦🇫",
     ["AL"] = "Albania 🇦🇱",
