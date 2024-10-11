@@ -560,6 +560,56 @@ local function unblacklistAll()
     end
 end
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local blacklistLoop = false  -- Initially, the loop is stopped
+
+local function addToBlacklist(player)
+    local args = {
+        [1] = "AddBlacklist",
+        [2] = player.Name
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+end
+
+local function checkForNewPlayers()
+    while blacklistLoop do  -- The loop will only run if blacklistLoop is true
+        for _, player in ipairs(Players:GetPlayers()) do
+            -- Now includes LocalPlayer as well
+            addToBlacklist(player)
+        end
+        task.wait(0.1)  -- Use task.wait to avoid blocking
+    end
+end
+
+Players.PlayerAdded:Connect(function(player)
+    task.wait(1)
+    if blacklistLoop then
+        addToBlacklist(player)
+    end
+end)
+
+-- Function to start the blacklist loop, can only be called once
+local function startBlacklist()
+    if not blacklistLoop then  -- Check if the loop is already off
+        blacklistLoop = true
+        print("Blacklist started.")
+        spawn(checkForNewPlayers)  -- Start the loop in a new thread
+    else
+        print("Blacklist is already running and cannot be started again.")
+    end
+end
+
+-- Function to stop the blacklist loop, can only be called once
+local function stopBlacklist()
+    if blacklistLoop then  -- Check if the loop is already on
+        blacklistLoop = false
+        print("Blacklist stopped.")
+    else
+        print("Blacklist is already stopped and cannot be turned off again.")
+    end
+end
+
 loaded()
 wait(1)
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
@@ -581,6 +631,13 @@ local Tab = Window:NewTab("RMA Trolling Booth")
 local Section = Tab:NewSection("Trolling Booth")
 Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
     Library:ToggleUI()
+end)
+Section:NewButton("FE Fake Blacklist All", "Fe Fake Blacklist All Players", function()
+    startBlacklist()
+end)
+
+Section:NewButton("FE Fake Unblacklist All", "FE Fake Unblacklist All Players", function()
+    stopBlacklist()
 end)
 Section:NewButton("Blacklist All", "Blacklist all players", function()
     blacklistAll()
