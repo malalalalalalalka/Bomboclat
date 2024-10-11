@@ -1,722 +1,1217 @@
--- Table for mapping country codes to full country names with emojis
-local countryNames = {
-    ["AF"] = "Afghanistan 🇦🇫",
-    ["AL"] = "Albania 🇦🇱",
-    ["DZ"] = "Algeria 🇩🇿",
-    ["AS"] = "American Samoa 🇦🇸",
-    ["AD"] = "Andorra 🇦🇩",
-    ["AO"] = "Angola 🇦🇴",
-    ["AI"] = "Anguilla 🇦🇮",
-    ["AG"] = "Antigua and Barbuda 🇦🇬",
-    ["AR"] = "Argentina 🇦🇷",
-    ["AM"] = "Armenia 🇦🇲",
-    ["AW"] = "Aruba 🇦🇼",
-    ["AU"] = "Australia 🇦🇺",
-    ["AT"] = "Austria 🇦🇹",
-    ["AZ"] = "Azerbaijan 🇦🇿",
-    ["BS"] = "Bahamas 🇧🇸",
-    ["BH"] = "Bahrain 🇧🇭",
-    ["BD"] = "Bangladesh 🇧🇩",
-    ["BB"] = "Barbados 🇧🇧",
-    ["BY"] = "Belarus 🇧🇾",
-    ["BE"] = "Belgium 🇧🇪",
-    ["BZ"] = "Belize 🇧🇿",
-    ["BJ"] = "Benin 🇧🇯",
-    ["BM"] = "Bermuda 🇧🇲",
-    ["BT"] = "Bhutan 🇧🇹",
-    ["BO"] = "Bolivia 🇧🇴",
-    ["BA"] = "Bosnia and Herzegovina 🇧🇦",
-    ["BW"] = "Botswana 🇧🇼",
-    ["BR"] = "Brazil 🇧🇷",
-    ["BN"] = "Brunei 🇧🇳",
-    ["BG"] = "Bulgaria 🇧🇬",
-    ["BF"] = "Burkina Faso 🇧🇫",
-    ["BI"] = "Burundi 🇧🇮",
-    ["KH"] = "Cambodia 🇰🇭",
-    ["CM"] = "Cameroon 🇨🇲",
-    ["CA"] = "Canada 🇨🇦",
-    ["CV"] = "Cape Verde 🇨🇻",
-    ["KY"] = "Cayman Islands 🇰🇾",
-    ["CF"] = "Central African Republic 🇨🇫",
-    ["TD"] = "Chad 🇹🇩",
-    ["CL"] = "Chile 🇨🇱",
-    ["CN"] = "China 🇨🇳",
-    ["CO"] = "Colombia 🇨🇴",
-    ["KM"] = "Comoros 🇰🇲",
-    ["CG"] = "Congo 🇨🇬",
-    ["CD"] = "Congo (DRC) 🇨🇩",
-    ["CR"] = "Costa Rica 🇨🇷",
-    ["CI"] = "Côte d'Ivoire 🇨🇮",
-    ["HR"] = "Croatia 🇭🇷",
-    ["CU"] = "Cuba 🇨🇺",
-    ["CY"] = "Cyprus 🇨🇾",
-    ["CZ"] = "Czechia 🇨🇿",
-    ["DK"] = "Denmark 🇩🇰",
-    ["DJ"] = "Djibouti 🇩🇯",
-    ["DM"] = "Dominica 🇩🇲",
-    ["DO"] = "Dominican Republic 🇩🇴",
-    ["EC"] = "Ecuador 🇪🇨",
-    ["EG"] = "Egypt 🇪🇬",
-    ["SV"] = "El Salvador 🇸🇻",
-    ["GQ"] = "Equatorial Guinea 🇬🇶",
-    ["ER"] = "Eritrea 🇪🇷",
-    ["EE"] = "Estonia 🇪🇪",
-    ["SZ"] = "Eswatini 🇸🇿",
-    ["ET"] = "Ethiopia 🇪🇹",
-    ["FJ"] = "Fiji 🇫🇯",
-    ["FI"] = "Finland 🇫🇮",
-    ["FR"] = "France 🇫🇷",
-    ["GA"] = "Gabon 🇬🇦",
-    ["GM"] = "Gambia 🇬🇲",
-    ["GE"] = "Georgia 🇬🇪",
-    ["DE"] = "Germany 🇩🇪",
-    ["GH"] = "Ghana 🇬🇭",
-    ["GR"] = "Greece 🇬🇷",
-    ["GD"] = "Grenada 🇬🇩",
-    ["GU"] = "Guam 🇬🇺",
-    ["GT"] = "Guatemala 🇬🇹",
-    ["GN"] = "Guinea 🇬🇳",
-    ["GW"] = "Guinea-Bissau 🇬🇼",
-    ["GY"] = "Guyana 🇬🇾",
-    ["HT"] = "Haiti 🇭🇹",
-    ["HN"] = "Honduras 🇭🇳",
-    ["HU"] = "Hungary 🇭🇺",
-    ["IS"] = "Iceland 🇮🇸",
-    ["IN"] = "India 🇮🇳",
-    ["ID"] = "Indonesia 🇮🇩",
-    ["IR"] = "Iran 🇮🇷",
-    ["IQ"] = "Iraq 🇮🇶",
-    ["IE"] = "Ireland 🇮🇪",
-    ["IL"] = "Israel 🇮🇱",
-    ["IT"] = "Italy 🇮🇹",
-    ["JM"] = "Jamaica 🇯🇲",
-    ["JP"] = "Japan 🇯🇵",
-    ["JO"] = "Jordan 🇯🇴",
-    ["KZ"] = "Kazakhstan 🇰🇿",
-    ["KE"] = "Kenya 🇰🇪",
-    ["KI"] = "Kiribati 🇰🇮",
-    ["KP"] = "North Korea 🇰🇵",
-    ["KR"] = "South Korea 🇰🇷",
-    ["KW"] = "Kuwait 🇰🇼",
-    ["KG"] = "Kyrgyzstan 🇰🇬",
-    ["LA"] = "Laos 🇱🇦",
-    ["LV"] = "Latvia 🇱🇻",
-    ["LB"] = "Lebanon 🇱🇧",
-    ["LS"] = "Lesotho 🇱🇸",
-    ["LR"] = "Liberia 🇱🇷",
-    ["LY"] = "Libya 🇱🇾",
-    ["LI"] = "Liechtenstein 🇱🇮",
-    ["LT"] = "Lithuania 🇱🇹",
-    ["LU"] = "Luxembourg 🇱🇺",
-    ["MG"] = "Madagascar 🇲🇬",
-    ["MW"] = "Malawi 🇲🇼",
-    ["MY"] = "Malaysia 🇲🇾",
-    ["MV"] = "Maldives 🇲🇻",
-    ["ML"] = "Mali 🇲🇱",
-    ["MT"] = "Malta 🇲🇹",
-    ["MH"] = "Marshall Islands 🇲🇭",
-    ["MR"] = "Mauritania 🇲🇷",
-    ["MU"] = "Mauritius 🇲🇺",
-    ["MX"] = "Mexico 🇲🇽",
-    ["FM"] = "Micronesia 🇫🇲",
-    ["MD"] = "Moldova 🇲🇩",
-    ["MC"] = "Monaco 🇲🇨",
-    ["MN"] = "Mongolia 🇲🇳",
-    ["ME"] = "Montenegro 🇲🇪",
-    ["MA"] = "Morocco 🇲🇦",
-    ["MZ"] = "Mozambique 🇲🇿",
-    ["MM"] = "Myanmar 🇲🇲",
-    ["NA"] = "Namibia 🇳🇦",
-    ["NR"] = "Nauru 🇳🇷",
-    ["NP"] = "Nepal 🇳🇵",
-    ["NL"] = "Netherlands 🇳🇱",
-    ["NZ"] = "New Zealand 🇳🇿",
-    ["NI"] = "Nicaragua 🇳🇮",
-    ["NE"] = "Niger 🇳🇪",
-    ["NG"] = "Nigeria 🇳🇬",
-    ["NO"] = "Norway 🇳🇴",
-    ["OM"] = "Oman 🇴🇲",
-    ["PK"] = "Pakistan 🇵🇰",
-    ["PW"] = "Palau 🇵🇼",
-    ["PS"] = "Palestine 🇵🇸",
-    ["PA"] = "Panama 🇵🇦",
-    ["PG"] = "Papua New Guinea 🇵🇬",
-    ["PY"] = "Paraguay 🇵🇾",
-    ["PE"] = "Peru 🇵🇪",
-    ["PH"] = "Philippines 🇵🇭",
-    ["PL"] = "Poland 🇵🇱",
-    ["PT"] = "Portugal 🇵🇹",
-    ["QA"] = "Qatar 🇶🇦",
-    ["RO"] = "Romania 🇷🇴",
-    ["RU"] = "Russia 🇷🇺",
-    ["RW"] = "Rwanda 🇷🇼",
-    ["WS"] = "Samoa 🇼🇸",    
-    ["SM"] = "San Marino 🇸🇲",    
-    ["ST"] = "Sao Tome and Principe 🇸🇹",    
-    ["SA"] = "Saudi Arabia 🇸🇦",    
-    ["SN"] = "Senegal 🇸🇳",    
-    ["RS"] = "Serbia 🇷🇸",    
-    ["SC"] = "Seychelles 🇸🇨",    
-    ["SL"] = "Sierra Leone 🇸🇱",    
-    ["SG"] = "Singapore 🇸🇬",    
-    ["SK"] = "Slovakia 🇸🇰",    
-    ["SI"] = "Slovenia 🇸🇮",    
-    ["SB"] = "Solomon Islands 🇸🇧",    
-    ["SO"] = "Somalia 🇸🇴",    
-    ["ZA"] = "South Africa 🇿🇦",    
-    ["SS"] = "South Sudan 🇸🇸",    
-    ["ES"] = "Spain 🇪🇸",    
-    ["LK"] = "Sri Lanka 🇱🇰",    
-    ["SD"] = "Sudan 🇸🇩",    
-    ["SR"] = "Suriname 🇸🇷",    
-    ["SE"] = "Sweden 🇸🇪",    
-    ["CH"] = "Switzerland 🇨🇭",    
-    ["SY"] = "Syria 🇸🇾",    
-    ["TW"] = "Taiwan 🇹🇼",    
-    ["TJ"] = "Tajikistan 🇹🇯",    
-    ["TZ"] = "Tanzania 🇹🇿",    
-    ["TH"] = "Thailand 🇹🇭",    
-    ["TL"] = "Timor-Leste 🇹🇱",    
-    ["TG"] = "Togo 🇹🇬",    
-    ["TO"] = "Tonga 🇹🇴",    
-    ["TT"] = "Trinidad and Tobago 🇹🇹",    
-    ["TN"] = "Tunisia 🇹🇳",    
-    ["TR"] = "Turkey 🇹🇷",    
-    ["TM"] = "Turkmenistan 🇹🇲",    
-    ["TV"] = "Tuvalu 🇹🇻",    
-    ["UG"] = "Uganda 🇺🇬",    
-    ["UA"] = "Ukraine 🇺🇦",    
-    ["AE"] = "United Arab Emirates 🇦🇪",    
-    ["GB"] = "United Kingdom 🇬🇧",    
-    ["US"] = "United States 🇺🇸",    
-    ["UY"] = "Uruguay 🇺🇾",    
-    ["UZ"] = "Uzbekistan 🇺🇿",    
-    ["VU"] = "Vanuatu 🇻🇺",    
-    ["VE"] = "Venezuela 🇻🇪",    
-    ["VN"] = "Vietnam 🇻🇳",    
-    ["YE"] = "Yemen 🇾🇪",    
-    ["ZM"] = "Zambia 🇿🇲",    
-    ["ZW"] = "Zimbabwe 🇿🇼",    
-    ["Unknown"] = "Unknown Country 🌍"
-}
+-- Gui to Lua
+-- Version: 3.2
 
--- Function to get full country name from code
-local function getFullCountryName(code)
-    return countryNames[code] or "Unknown Region"
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Warper = Instance.new("Frame")
+local Animated = Instance.new("ImageLabel")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Warper.Name = "Warper"
+Warper.Parent = ScreenGui
+Warper.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Warper.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Warper.BorderSizePixel = 0
+Warper.ClipsDescendants = true
+Warper.Position = UDim2.new(0.425112844, 0, 0.343283504, 0)
+Warper.Size = UDim2.new(0, 202, 0, 285)
+
+Animated.Name = "Animated"
+Animated.Parent = Warper
+Animated.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Animated.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Animated.BorderSizePixel = 0
+Animated.ClipsDescendants = true
+Animated.Size = UDim2.new(1, 0, 1, 0)
+Animated.Image = "rbxassetid://100114946248109"
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.030
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.424831092, 0, 0.696517408, 0)
+Frame.Size = UDim2.new(0, 202, 0, 43)
+
+UICorner.Parent = Frame
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.00495049497, 0, 0.534883738, 0)
+TextLabel.Size = UDim2.new(0, 200, 0, 37)
+TextLabel.Font = Enum.Font.Nunito
+TextLabel.Text = "Scripted By Duffmaster"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextStrokeTransparency = 0.000
+TextLabel.TextWrapped = true
+
+UICorner_2.Parent = TextLabel
+
+UIAspectRatioConstraint.Parent = ScreenGui
+UIAspectRatioConstraint.AspectRatio = 1.328
+
+-- Scripts:
+
+local function CVTED_fake_script() -- Animated.LocalScript 
+	local script = Instance.new('LocalScript', Animated)
+
+	--[[Configuration]]--
+	
+	local warperFramerate = 24 -- Do i need to explain this? (Caps at 60 cuz roblox bad) (additionally, this does not support frame skipping)
+	local lastFrame = 1 -- Frame the animation starts at
+	local frames = 243 -- Amount of frames in the animation
+	local rows = 12 -- Amount of vertical frames in the animation
+	local columns = 21 -- Amount of horizontal frames in the animation
+	
+	local AnimationFrameWrapper = script.Parent.Parent -- The parent frame to the animated sprite, has clipping enabled so that only one frame can be displayed at once
+	
+	local AnimatedSprite = AnimationFrameWrapper.Animated -- The image you're animating
+	
+	local t = tick() -- Used in animation framerate timing
+	
+	AnimatedSprite.Size = UDim2.new(columns,0,rows,0) -- Sets the size of the image in case you set it wrong, really easy tho
+	
+	local function AnimationFunction()
+		-- Extra animation function that was used in the loading screen, can be used to execute special code during an animation
+		--(eg u were lazy and decided to change the transparency via the animation instead of doing it in the sprite)
+	end
+	
+	local function UpdateWarper(f)
+		if tick()-t >= 1/warperFramerate then -- check if enough time has passed between frames to update the sprite
+			lastFrame = lastFrame + 1
+			if lastFrame > frames then lastFrame = 1 end -- Loop gif
+			local CurrentColumn = lastFrame -- set the current horizontal frame to the current frame
+			local CurrentRow = 1
+			repeat -- This gets what the current column and row should be based on the current frame (this is why we set CurrentColumn to lastFrame earlier)
+				if CurrentColumn>columns then
+					CurrentColumn = CurrentColumn - columns
+					CurrentRow = CurrentRow + 1
+				end
+			until not(CurrentColumn>columns)
+	
+			-- Update the image label
+			AnimationFrameWrapper.Animated.Position = UDim2.new(-(CurrentColumn-1),0,-(CurrentRow-1),0)
+			
+			f() -- This was used originally to 
+	
+			t = tick()
+		end
+	end
+	
+	game:GetService("RunService").RenderStepped:Connect(function()
+		UpdateWarper(AnimationFunction)
+	end)
+	-- you can tie this into any existing runservice you might already have
 end
+coroutine.wrap(CVTED_fake_script)()
+local function BKTAOE_fake_script() -- Warper.LocalScript 
+	local script = Instance.new('LocalScript', Warper)
 
-local executor
-
-if syn then
-    executor = "Synapse X"
-elseif fluxus then
-    executor = "Fluxus"
-elseif KRNL then
-    executor = "KRNL"
-elseif ScriptWare then
-    executor = "Script-Ware"
-elseif ProtoSmasher then
-    executor = "ProtoSmasher"
-elseif SirHurt then
-    executor = "SirHurt"
-elseif EasyExploit then
-    executor = "EasyExploit"
-elseif Comet then
-    executor = "Comet"
-elseif Elysian then
-    executor = "Elysian"
-elseif Oxygen then
-    executor = "Oxygen U"
-elseif Evon then
-    executor = "Evon"
-elseif Cryptic then
-    executor = "Cryptic"
-elseif Codex then
-    executor = "Codex"
-elseif Nihon then
-    executor = "Nihon"
-elseif getexecutorname then
-    executor = getexecutorname()
-elseif Delta then
-    executor = "Delta"
-elseif Arceus then
-    executor = "Arceus X"
-elseif Kiwi then
-    executor = "Kiwi X"
-elseif Zeus then
-    executor = "Zeus"
-elseif Andromeda then
-    executor = "Andromeda"
-elseif Poseidon then
-    executor = "Poseidon"
-elseif Hydrogen then
-    executor = "Hydrogen"
-elseif Vega then
-    executor = "Vega X"
-else
-    executor = "Unknown Executor"
-end
-
-local player = game:GetService("Players").LocalPlayer
-local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local currentTime = os.date("%Y-%m-%d %H:%M:%S")
-local playerId = player.UserId
-local placeId = game.PlaceId
-local placeVersion = game.PlaceVersion
-local jobId = game.JobId
-local accountAge = player.AccountAge
-local countryCode = game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(player)
-local region = getFullCountryName(countryCode) -- Get full region name
-
-local gameLink = "https://www.roblox.com/games/" .. tostring(placeId) .. "/" .. gameName:gsub(" ", "-")
-
-local UserInputService = game:GetService("UserInputService")
-local platform = UserInputService.TouchEnabled and "Mobile" or "PC"
-
-local url = "https://discord.com/api/webhooks/1290698129024487565/w7avd8vNUsMy6SXm8v2vSXRKh4m48nUznfieQSbwaJvqbFjth9jC6a7SmbOTYESN8EBr"
-
-local data = {
-   ["content"] = "# Menace Hub User",
-   ["embeds"] = {{
-      ["title"] = "**Player Information**",
-      ["description"] = "Details about the player and the game.",
-      ["type"] = "rich",
-      ["color"] = tonumber(0x7289DA),
-      ["fields"] = {
-         {
-            ["name"] = "Player Name",
-            ["value"] = player.Name,
-            ["inline"] = true
-         },
-         {
-            ["name"] = "User ID",
-            ["value"] = tostring(playerId),
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Game Name",
-            ["value"] = gameName,
-            ["inline"] = false
-         },
-         {
-            ["name"] = "Game ID",
-            ["value"] = tostring(placeId),
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Game Version",
-            ["value"] = tostring(placeVersion),
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Server Job ID",
-            ["value"] = jobId,
-            ["inline"] = false
-         },
-         {
-            ["name"] = "Execution Time",
-            ["value"] = currentTime,
-            ["inline"] = false
-         },
-         {
-            ["name"] = "Executor",
-            ["value"] = executor,
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Account Age (Days)",
-            ["value"] = tostring(accountAge),
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Device Used",
-            ["value"] = platform,
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Country",
-            ["value"] = region or "Unknown",
-            ["inline"] = true
-         },
-         {
-            ["name"] = "Game Link",
-            ["value"] = gameLink,
-            ["inline"] = false
-         },
-         {
-            ["name"] = "Copy this to join the server",
-            ["value"] = [[
-local gameId = "]] .. tostring(placeId) .. [["
-local jobId = "]] .. jobId .. [["
-
-function joinServer(gameId, jobId)
-    local Players = game:GetService("Players")
-    local TeleportService = game:GetService("TeleportService")
-    TeleportService:TeleportToPlaceInstance(gameId, jobId, Players.LocalPlayer)
-end
-
-joinServer(gameId, jobId)
-]],
-            ["inline"] = false
-         }
-      }
-   }}
-}
-
-local newdata = game:GetService("HttpService"):JSONEncode(data)
-
-local headers = {
-   ["content-type"] = "application/json"
-}
-
-local request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef)
-
-local OrionLib = loadstring(game:HttpGet(('https://paste.ee/r/E9tFZ/0')))()
-
-function loading()
-    OrionLib:MakeNotification({
-        Name = "Successfully executed Menace Hub!",
-        Content = "Loading...",
-        Image = "rbxassetid://119780129386155",
-        Time = 5
-    })
-end
-
-function blacklistallplrs()
-    OrionLib:MakeNotification({
-        Name = "All players has been blacklisted.",
-        Content = "Executed!",
-        Image = "rbxassetid://119780129386155",
-        Time = 3
-    })
-end
-
-function unblacklistallplrs()
-    OrionLib:MakeNotification({
-        Name = "All players has been unblacklisted.",
-        Content = "Executed!",
-        Image = "rbxassetid://119780129386155",
-        Time = 3
-    })
-end
-
-function fakeblacklistallplrs()
-    OrionLib:MakeNotification({
-        Name = "All players has been blacklisted(FAKE)!",
-        Content = "Executed!",
-        Image = "rbxassetid://119780129386155",
-        Time = 3
-    })
-end
-
-function fakeunblacklistallplrs()
-    OrionLib:MakeNotification({
-        Name = "All players has been unblacklisted(FAKE)!",
-        Content = "Executed!",
-        Image = "rbxassetid://119780129386155",
-        Time = 3
-    })
-end
-
-function alrexe()
-    OrionLib:MakeNotification({
-        Name = "Error.",
-        Content = "Menace Hub has already been executed.",
-        Image = "rbxassetid://127494006155047",
-        Time = 5
-    })
-end
-function loaded()
-    OrionLib:MakeNotification({
-        Name = "Successfully executed Menace Hub!",
-        Content = "Loaded!",
-        Image = "rbxassetid://119780129386155",
-        Time = 5
-    })
-end
-
-if _G.MenaceHub then
-    alrexe()
-    return
-end
-
-_G.MenaceHub = true
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local targetGameId = 6708206173
-
-if game.PlaceId == targetGameId then
-    game.Workspace.DescendantAdded:Connect(function(Object)
-        game:GetService("RunService").Stepped:Wait()
-        
-        if not string.find(Object.Name, "BarrierFor") then return end
-        
-        Object.CFrame = CFrame.new(9e9, 9e9, 9e9)
-    end)
-end
-
-loading()
-wait(2)
-local function settoggle()
-    local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "Open And Close Button"
-    local Frame = Instance.new("Frame")
-    local TextButton = Instance.new("TextButton")
-    local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
-    local UICorner = Instance.new("UICorner")
-
-    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    ScreenGui.ResetOnSpawn = false
-
-    Frame.Parent = ScreenGui
-    Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    Frame.BackgroundTransparency = 0.5
-    Frame.Position = UDim2.new(0.5, -50, 0.5, -25)
-    Frame.Size = UDim2.new(0, 100, 0, 50)
-
-    UICorner.Parent = Frame
-
-    TextButton.Parent = Frame
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 1.0
-    TextButton.Size = UDim2.new(1, 0, 1, 0)
-    TextButton.Font = Enum.Font.SourceSans
-    TextButton.Text = "Close"
-    TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
-    TextButton.TextScaled = true
-    TextButton.TextSize = 30.000
-    TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton.TextStrokeTransparency = 0.5
-    TextButton.TextWrapped = true
-
-    TextButton.MouseButton1Down:Connect(function()
-        if TextButton.Text == "Close" then
-            TextButton.Text = "Open"
-            TextButton.TextColor3 = Color3.fromRGB(0, 255, 0)
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
+	-- Replace "YourGUI" with the name of your GUI object
+	-- Assuming the script is a LocalScript and the GUI is a child of StarterGui
+	
+	
+	-- Call the function to center the GUI
+	-- Place this LocalScript inside StarterGui or any appropriate location
+	
+	
+	
+	
+	local gui = script.Parent
+	
+	wait(4)
+	gui.Visible = false
+	
+	
+	--[[
+	
+			Gui2Lua™
+			10zOfficial
+			Version 1.0.0
+	
+	]]
+	
+	
+	-- Instances
+	
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local Frame_2 = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local UICorner_2 = Instance.new("UICorner")
+	local PlayerName = Instance.new("TextLabel")
+	local PlayerImage = Instance.new("ImageLabel")
+	local Frame_3 = Instance.new("Frame")
+	local UICorner_3 = Instance.new("UICorner")
+	local TextButton = Instance.new("TextButton")
+	local UICorner_4 = Instance.new("UICorner")
+	local TextButton_2 = Instance.new("TextButton")
+	local UICorner_5 = Instance.new("UICorner")
+	local ImageButton = Instance.new("ImageButton")
+	local UICorner_6 = Instance.new("UICorner")
+	local TextBox = Instance.new("TextBox")
+	local UICorner_7 = Instance.new("UICorner")
+	local ad = Instance.new("TextButton")
+	local UICorner_8 = Instance.new("UICorner")
+	local UIPadding = Instance.new("UIPadding")
+	local re = Instance.new("TextButton")
+	local UICorner_9 = Instance.new("UICorner")
+	local UICorner_10 = Instance.new("UICorner")
+	local ImageButton_2 = Instance.new("ImageButton")
+	local UICorner_11 = Instance.new("UICorner")
+	local ad_2 = Instance.new("TextLabel")
+	
+	-- Properties
+	
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+	Frame.BorderColor3 = Color3.new(0, 0, 0)
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0.346326828, 0, 0.3573201, 0)
+	Frame.Size = UDim2.new(0, 361, 0, 300)
+	
+	Frame_2.Parent = Frame
+	Frame_2.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	Frame_2.BorderColor3 = Color3.new(0, 0, 0)
+	Frame_2.BorderSizePixel = 0
+	Frame_2.Position = UDim2.new(0.0308124404, 0, 0.0927641839, 0)
+	Frame_2.Size = UDim2.new(0, 337, 0, 260)
+	
+	UICorner.Parent = Frame_2
+	
+	UICorner_2.Parent = Frame
+	
+	PlayerName.Name = "PlayerName"
+	PlayerName.Parent = Frame
+	PlayerName.BackgroundColor3 = Color3.new(1, 1, 1)
+	PlayerName.BackgroundTransparency = 1
+	PlayerName.BorderColor3 = Color3.new(0, 0, 0)
+	PlayerName.BorderSizePixel = 0
+	PlayerName.Position = UDim2.new(0.0308124404, 0, 0.350550532, 0)
+	PlayerName.Size = UDim2.new(0, 90, 0, 23)
+	PlayerName.Font = Enum.Font.Nunito
+	PlayerName.TextColor3 = Color3.new(1, 1, 1)
+	PlayerName.TextScaled = true
+	PlayerName.TextSize = 14
+	PlayerName.TextWrapped = true
+	
+	PlayerImage.Name = "PlayerImage"
+	PlayerImage.Parent = Frame
+	PlayerImage.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	PlayerImage.BorderColor3 = Color3.new(0, 0, 0)
+	PlayerImage.BorderSizePixel = 0
+	PlayerImage.Position = UDim2.new(0.0573743992, 0, 0.123031817, 0)
+	PlayerImage.Size = UDim2.new(0, 71, 0, 69)
+	PlayerImage.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	
+	Frame_3.Parent = PlayerImage
+	Frame_3.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+	Frame_3.BorderColor3 = Color3.new(0, 0, 0)
+	Frame_3.BorderSizePixel = 0
+	Frame_3.Position = UDim2.new(1.125, 0, 0, 0)
+	Frame_3.Size = UDim2.new(0, 236, 0, 242)
+	
+	UICorner_3.Parent = Frame_3
+	
+	TextButton.Parent = Frame_3
+	TextButton.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	TextButton.BorderColor3 = Color3.new(0, 0, 0)
+	TextButton.BorderSizePixel = 0
+	TextButton.Position = UDim2.new(0.0500000007, 0, 0.0700000003, 0)
+	TextButton.Size = UDim2.new(0, 209, 0, 34)
+	TextButton.Font = Enum.Font.SourceSans
+	TextButton.Text = "Activate (Animation)"
+	TextButton.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	TextButton.TextSize = 20
+	
+	UICorner_4.Parent = TextButton
+	
+	TextButton_2.Parent = Frame_3
+	TextButton_2.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	TextButton_2.BorderColor3 = Color3.new(0, 0, 0)
+	TextButton_2.BorderSizePixel = 0
+	TextButton_2.Position = UDim2.new(0.0588234067, 0, 0.822076082, 0)
+	TextButton_2.Size = UDim2.new(0, 145, 0, 27)
+	TextButton_2.Font = Enum.Font.SourceSans
+	TextButton_2.Text = "Help"
+	TextButton_2.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	TextButton_2.TextSize = 20
+	
+	UICorner_5.Parent = TextButton_2
+	
+	ImageButton.Parent = Frame_3
+	ImageButton.BackgroundColor3 = Color3.new(1, 1, 1)
+	ImageButton.BackgroundTransparency = 1
+	ImageButton.BorderColor3 = Color3.new(0, 0, 0)
+	ImageButton.BorderSizePixel = 0
+	ImageButton.Position = UDim2.new(0.745514154, 0, 0.782980025, 0)
+	ImageButton.Size = UDim2.new(0, 46, 0, 42)
+	ImageButton.Image = "http://www.roblox.com/asset/?id=18505728201"
+	
+	UICorner_6.Parent = ImageButton
+	
+	TextBox.Parent = Frame_3
+	TextBox.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	TextBox.BorderColor3 = Color3.new(0, 0, 0)
+	TextBox.BorderSizePixel = 0
+	TextBox.Position = UDim2.new(0.0500000007, 0, 0.25, 0)
+	TextBox.Size = UDim2.new(0, 209, 0, 35)
+	TextBox.Font = Enum.Font.SourceSans
+	TextBox.PlaceholderColor3 = Color3.new(0.52549, 0.52549, 0.52549)
+	TextBox.PlaceholderText = "Target Someone (type name)"
+	TextBox.Text = ""
+	TextBox.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	TextBox.TextScaled = true
+	TextBox.TextSize = 14
+	TextBox.TextWrapped = true
+	
+	UICorner_7.Parent = TextBox
+	
+	ad.Name = "ad"
+	ad.Parent = Frame_3
+	ad.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	ad.BorderColor3 = Color3.new(0, 0, 0)
+	ad.BorderSizePixel = 0
+	ad.Position = UDim2.new(0.0500000007, 0, 0.430000007, 0)
+	ad.Size = UDim2.new(0, 209, 0, 34)
+	ad.Font = Enum.Font.SourceSans
+	ad.Text = "Name Activate"
+	ad.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	ad.TextSize = 20
+	
+	UICorner_8.Parent = ad
+	
+	UIPadding.Parent = Frame_3
+	
+	re.Name = "re"
+	re.Parent = Frame_3
+	re.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+	re.BorderColor3 = Color3.new(0, 0, 0)
+	re.BorderSizePixel = 0
+	re.Position = UDim2.new(0.0500000007, 0, 0.610000014, 0)
+	re.Size = UDim2.new(0, 209, 0, 34)
+	re.Font = Enum.Font.SourceSans
+	re.Text = "Reset | Stop"
+	re.TextColor3 = Color3.new(0.854902, 0.854902, 0.854902)
+	re.TextSize = 20
+	
+	UICorner_9.Parent = re
+	
+	UICorner_10.Parent = PlayerImage
+	
+	ImageButton_2.Parent = Frame
+	ImageButton_2.BackgroundColor3 = Color3.new(1, 1, 1)
+	ImageButton_2.BackgroundTransparency = 1
+	ImageButton_2.BorderColor3 = Color3.new(0, 0, 0)
+	ImageButton_2.BorderSizePixel = 0
+	ImageButton_2.Position = UDim2.new(0.916897535, 0, -0.0040650405, 0)
+	ImageButton_2.Size = UDim2.new(0, 30, 0, 23)
+	ImageButton_2.Image = "http://www.roblox.com/asset/?id=10830675223"
+	
+	UICorner_11.Parent = ImageButton_2
+	
+	ad_2.Name = "ad"
+	ad_2.Parent = Frame
+	ad_2.BackgroundColor3 = Color3.new(1, 1, 1)
+	ad_2.BackgroundTransparency = 1
+	ad_2.BorderColor3 = Color3.new(0, 0, 0)
+	ad_2.BorderSizePixel = 0
+	ad_2.Position = UDim2.new(0.00277008303, 0, -0.00554696564, 0)
+	ad_2.Size = UDim2.new(0, 360, 0, 23)
+	ad_2.Font = Enum.Font.Nunito
+	ad_2.Text = "Menace Hub | Doggy Style"
+	ad_2.TextColor3 = Color3.new(1, 1, 1)
+	ad_2.TextScaled = true
+	ad_2.TextSize = 14
+	ad_2.TextWrapped = true
+	
+	-- Scripts
+	
+    local function scanPlayers(query)
+        local players = Players:GetPlayers()
+        local matches = {}
+    
+        for _, player in ipairs(players) do
+            local usernameMatch = string.sub(player.Name:lower(), 1, #query:lower()) == query:lower()
+            local displayNameMatch = string.sub(player.DisplayName:lower(), 1, #query:lower()) == query:lower()
+    
+            if usernameMatch or displayNameMatch then
+                table.insert(matches, player.Name)
+            end
+        end
+    
+        return matches
+    end
+    
+    local function autoComplete()
+        local inputText = TextBox.Text
+        local matches = scanPlayers(inputText)
+    
+        if #matches == 1 then
+            TextBox.Text = matches[1]
+            TextBox.SelectionStart = #TextBox.Text -- Keep the cursor at the end of the text
+            TextBox.TextEditable = true
         else
-            TextButton.Text = "Close"
-            TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6", false, game)
-        end
-    end)
-
-    UITextSizeConstraint.Parent = TextButton
-    UITextSizeConstraint.MaxTextSize = 30
-
-    local UIS = game:GetService("UserInputService")
-
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
-
-    local function update(input)
-        local delta = input.Position - dragStart
-        Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-
-    TextButton.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = Frame.Position
-
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
-
-    TextButton.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end)
-
-    UIS.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
-    end)
-end
-
-
-function DescText(newText)
-    local args = {
-        [1] = "Update",
-        [2] = {
-            ["DescriptionText"] = newText,
-            ["ImageId"] = 0
-        }
-    }
-
-    game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-end
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local blacklisting = false
-
--- Function to add a player to the blacklist
-local function addToBlacklist(player)
-    if player ~= LocalPlayer then
-        local args = {
-            [1] = "AddBlacklist",
-            [2] = player.Name
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-    end
-end
-
--- Function to remove a player from the blacklist
-local function removeFromBlacklist(player)
-    if player ~= LocalPlayer then
-        local args = {
-            [1] = "RemoveBlacklist",
-            [2] = player.Name
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-    end
-end
-
--- Function to blacklist all players and any new players that join
-local function blacklistAll()
-    blacklisting = true
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer then
-            addToBlacklist(player)
+            TextBox.TextEditable = true
         end
     end
     
-    Players.PlayerAdded:Connect(function(player)
-        if blacklisting and player ~= LocalPlayer then
-            addToBlacklist(player)
-        end
+    TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+        autoComplete()
     end)
-end
-
--- Function to unblacklist all players and stop continuous blacklisting
-local function unblacklistAll()
-    blacklisting = false
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer then
-            removeFromBlacklist(player)
-        end
-    end
-end
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local blacklistLoop = false
-
-local function addToBlacklist(player)
-    local args = {
-        [1] = "AddBlacklist",
-        [2] = player.Name
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-end
-
-local function removeFromBlacklist(player)
-    local args = {
-        [1] = "RemoveBlacklist",
-        [2] = player.Name
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-end
-
-local function checkForNewPlayers()
-    while blacklistLoop do
-        for _, player in ipairs(Players:GetPlayers()) do
-            if blacklistLoop then  -- Only add if the loop is still running
-                addToBlacklist(player)
+    
+    TextBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            local targetUsername = TextBox.Text
+            if Players:FindFirstChild(targetUsername) then
+                print("Target player found: " .. targetUsername)
+            else
+                print("No matching player found.")
             end
         end
-        task.wait(0.1)
-    end
+    end)
+    
+	local function ORDEQXB_fake_script() -- TextButton.LocalScript 
+		local script = Instance.new('LocalScript', TextButton)
+	
+		script.Parent.MouseButton1Down:Connect(function()
+			local Players = game:GetService("Players")
+			local RunService = game:GetService("RunService")
+			local TweenService = game:GetService("TweenService")
+			local Workspace = game:GetService("Workspace")
+	
+			local player = Players.LocalPlayer
+			local character = player.Character or player.CharacterAdded:Wait()
+			local humanoid = character:WaitForChild("Humanoid")
+			local rootPart = character:WaitForChild("HumanoidRootPart")
+	
+			local targetPlayer
+			local headSit
+			local following
+			local sitConnection
+			local messageCounter = 0
+			local targetPositionBackup -- Variable to store the target position
+	
+			-- Function to get a random player within 15 studs of the local player
+			local function getRandomPlayerNearby()
+				local nearbyPlayers = {}
+				for _, otherPlayer in pairs(Players:GetPlayers()) do
+					if otherPlayer ~= player and otherPlayer.Character and otherPlayer.Character:FindFirstChild("HumanoidRootPart") then
+						local distance = (otherPlayer.Character.HumanoidRootPart.Position - rootPart.Position).Magnitude
+						if distance <= 15 then
+							table.insert(nearbyPlayers, otherPlayer)
+						end
+					end
+				end
+				if #nearbyPlayers > 0 then
+					return nearbyPlayers[math.random(1, #nearbyPlayers)]
+				end
+			end
+	
+			-- Function to ensure the position is on a solid part of the map
+			local function getSafePosition(position)
+				local ray = Ray.new(position + Vector3.new(0, 10, 0), Vector3.new(0, -20, 0))
+				local hitPart, hitPosition = Workspace:FindPartOnRay(ray)
+				if hitPart then
+					return hitPosition + Vector3.new(0, 1, 0) -- Slight adjustment to ensure the position is above the hit part
+				else
+					return position
+				end
+			end
+	
+			-- Function to dive onto the target player's HumanoidRootPart
+			local function diveOntoPlayer(target)
+				if not target or not target.Character or not target.Character:FindFirstChild("HumanoidRootPart") then
+					return
+				end
+	
+				targetPositionBackup = target.Character.HumanoidRootPart.Position -- Store target position
+				local targetPosition = getSafePosition(targetPositionBackup) -- Get safe position
+	
+				local diveTween = TweenService:Create(
+					rootPart,
+					TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+					{CFrame = CFrame.new(targetPosition + Vector3.new(0, 5, 0))}
+				)
+	
+				diveTween:Play()
+				diveTween.Completed:Connect(function()
+					-- Ensure the character lands correctly on the HumanoidRootPart
+					rootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1.6, 0.4)
+					humanoid.Sit = true
+					tweenUpAndDown()
+					headSit = RunService.Heartbeat:Connect(function()
+						if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") and humanoid.Sit then
+							rootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1.6, 0.4)
+						else
+							headSit:Disconnect()
+						end
+					end)
+				end)
+			end
+	
+			-- Function to spin and look at the target player for a longer duration
+			local function spinAndLook(target, duration)
+				local startTime = tick()
+				following = RunService.RenderStepped:Connect(function()
+					if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart")    then
+						local targetCFrame = target.Character.HumanoidRootPart.CFrame
+						local direction = (targetCFrame.Position - rootPart.Position).unit
+						local lookAtCFrame = CFrame.new(rootPart.Position, targetCFrame.Position)
+						rootPart.CFrame = lookAtCFrame
+	
+						-- Increase spin speed by modifying the rotation angle per second
+						local spinSpeed = 3000 -- Degrees per second
+						local elapsed = tick() - startTime
+						local angle = math.rad(spinSpeed * elapsed)
+	
+						rootPart.CFrame = lookAtCFrame * CFrame.Angles(0, angle, 0)
+	
+						-- Stop spinning when the duration is over
+						if elapsed >= duration then
+							following:Disconnect()
+						end
+					end
+				end)
+			end
+	
+			-- Function to rapidly adjust CFrame while sitting on the target player's HumanoidRootPart
+			local function sitOnTarget(target)
+				if sitConnection then sitConnection:Disconnect() end
+				sitConnection = RunService.Heartbeat:Connect(function()
+					if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart")  then
+						local targetCFrame = target.Character.HumanoidRootPart.CFrame
+	
+						-- Increase the multiplier for the height change and speed of oscillation
+						local amplitude = 2.2 -- Higher amplitude for more vertical movement
+						local frequency = (messageCounter > 4) and 6 or 16 -- Adjust frequency after 3rd message
+						local heightOffset = math.sin(tick() * frequency) * amplitude
+	
+						-- Lean forward by 180 degrees while oscillating
+						local leanForwardCFrame = targetCFrame * CFrame.Angles(math.rad(-90), 0, 0) 
+						rootPart.CFrame = leanForwardCFrame * CFrame.new(0, 1.6 + heightOffset, -1)
+					else
+						wait(1)
+						sitConnection:Disconnect()
+					end
+				end)
+	
+				-- Function to send specific chat messages with delays
+				local function sendChatMessages()
+					local messages = {
+					
+						{text = "wһуаrеуоujасkіngоffiгl", delay = 2},
+						{text = "іmgоnnаgіvеуоuаіdѕ", delay = 2.5},
+						{text = "your quееr for me🥵", delay = 2},
+						
+                        {text = "yeah sigmarape and make me feel good", delay = 2},
+                        {text = "OH MY GOD I JUST GOONED EVERYWHERE", delay = 2},
+	
+	
+					}
+	
+					for _, message in ipairs(messages) do
+						game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message.text, "All")
+						messageCounter = messageCounter + 1 -- Increment message counter
+						wait(message.delay) -- Delay between messages
+					end
+	
+					-- Stop teleporting after messages are sent
+					humanoid.Sit = false
+					rootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1.6, 0.4)
+					sitConnection:Disconnect() -- Ensure to disconnect after sending all messages
+	
+					-- Move the character back to the target's position after unsitting
+					if targetPositionBackup then
+						local safePosition = getSafePosition(targetPositionBackup)
+						local returnTween = TweenService:Create(
+							rootPart,
+							TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+							{CFrame = CFrame.new(safePosition + Vector3.new(0, 5, 0))}
+						)
+						returnTween:Play()
+					end
+				end
+	
+				-- Start sending specific chat messages
+				sendChatMessages()
+			end
+	
+			-- Function to play a specific animation
+			local function playAnimation()
+				local animationId = "rbxassetid://188632011"
+				local animation = Instance.new("Animation")
+				animation.AnimationId = animationId
+				local animationTrack = humanoid:LoadAnimation(animation)
+	
+				-- Set the playback speed before playing using AdjustSpeed
+				animationTrack:AdjustSpeed(5)
+	
+				-- Play the animation
+				animationTrack:Play()
+	
+				-- Wait for a while before stopping
+				wait(0.5)
+			end
+	
+			-- Function to chat funny messages
+			local function chatFunnyMessage(targetName)
+				local messages = {
+					"Watch out, " .. targetName .. "! 😆",
+					"You're DONE, " .. targetName .. "! 😎",
+					"Get ready, " .. targetName .. "! 😂",
+					"Incoming! " .. targetName .. " 🚀",
+					"Brace yourself, " .. targetName .. "! 🌟",
+				}
+				local randomMessage = messages[math.random(1, #messages)]
+				game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(randomMessage, "All")
+				wait(3)
+			end
+	
+			-- Function to handle target player leaving the game
+			
+	
+			-- Main execution
+			targetPlayer = getRandomPlayerNearby()
+			if targetPlayer then
+				playAnimation()  -- Use the updated function
+				local spinDuration = 5 -- Duration to spin and look at the target player
+				spinAndLook(targetPlayer, spinDuration)
+				wait(spinDuration)
+				chatFunnyMessage(targetPlayer.Name)
+				if following then following:Disconnect() end
+				wait(1)
+				diveOntoPlayer(targetPlayer)
+				wait(2)
+				sitOnTarget(targetPlayer)
+	
+				-- Connect to target player's character removal
+				targetPlayer.CharacterRemoving:Connect(onTargetPlayerRemoved)
+			else
+				game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("No targets within range! 💀", "All")
+				humanoid.Health = 0
+			end
+	
+		end)
+	end
+	coroutine.wrap(ORDEQXB_fake_script)()
+	local function TWIMIHT_fake_script() -- TextButton_2.LocalScript 
+		local script = Instance.new('LocalScript', TextButton_2)
+	
+		script.Parent.MouseButton1Down:Connect(function()
+			-- Services
+			local TweenService = game:GetService("TweenService")
+			local StarterGui = game:GetService("StarterGui")
+	
+			-- Link to copy
+			local linkToCopy = "https://discord.gg/C7GPPaADFA"
+	
+			-- Function to copy link to clipboard (Note: This requires a specific permission and may not work in all environments)
+			local function copyToClipboard(link)
+				if setclipboard then
+					setclipboard(link)
+				else
+					warn("Copy to clipboard is not supported on this platform.")
+				end
+			end
+	
+			-- Function to create and display a tweening notification
+			local function createNotification(message)
+				-- Create a ScreenGui to hold the notification
+				local screenGui = Instance.new("ScreenGui")
+				screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	
+				-- Create the notification frame
+				local notificationFrame = Instance.new("Frame")
+				notificationFrame.Size = UDim2.new(0, 300, 0, 50)
+				notificationFrame.Position = UDim2.new(0.5, -150, 1, 0) -- Start below the screen
+				notificationFrame.AnchorPoint = Vector2.new(0.5, 1)
+				notificationFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+				notificationFrame.BorderSizePixel = 0
+				notificationFrame.Parent = screenGui
+	
+				-- Create a label for the message
+				local messageLabel = Instance.new("TextLabel")
+				messageLabel.Size = UDim2.new(1, 0, 1, 0)
+				messageLabel.Position = UDim2.new(0, 0, 0, 0)
+				messageLabel.BackgroundTransparency = 1
+				messageLabel.Text = message
+				messageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+				messageLabel.Font = Enum.Font.Gotham
+				messageLabel.TextScaled = true
+				messageLabel.Parent = notificationFrame
+	
+				-- Tween the notification into view
+				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+				local tweenPosition = TweenService:Create(notificationFrame, tweenInfo, {Position = UDim2.new(0.5, -150, 0.9, 0)})
+				tweenPosition:Play()
+	
+				-- Wait a bit and then tween it out of view
+				wait(2)
+				local tweenOut = TweenService:Create(notificationFrame, tweenInfo, {Position = UDim2.new(0.5, -150, 1, 0)})
+				tweenOut:Play()
+	
+				-- Destroy the ScreenGui after the tween
+				tweenOut.Completed:Connect(function()
+					screenGui:Destroy()
+				end)
+			end
+	
+			-- Function to handle the button click
+			local function onButtonClick()
+				-- Copy the link to clipboard
+				copyToClipboard(linkToCopy)
+	
+				-- Show the notification
+				createNotification("Link copied to clipboard!")
+			end
+	
+			-- Connect the button click event
+			local button = script.Parent -- Assuming this script is inside the button
+			button.MouseButton1Click:Connect(onButtonClick)
+	
+		end)
+	end
+	coroutine.wrap(TWIMIHT_fake_script)()
+	local function WVDCLZ_fake_script() -- ImageButton.LocalScript 
+		local script = Instance.new('LocalScript', ImageButton)
+	
+		script.Parent.MouseButton1Down:Connect(function()
+			-- Services
+			local TweenService = game:GetService("TweenService")
+			local StarterGui = game:GetService("StarterGui")
+	
+			-- Link to copy
+			local linkToCopy = "https://discord.gg/C7GPPaADFA"
+	
+			-- Function to copy link to clipboard (Note: This requires a specific permission and may not work in all environments)
+			local function copyToClipboard(link)
+				if setclipboard then
+					setclipboard(link)
+				else
+					warn("Copy to clipboard is not supported on this platform.")
+				end
+			end
+	
+			-- Function to create and display a tweening notification
+			local function createNotification(message)
+				-- Create a ScreenGui to hold the notification
+				local screenGui = Instance.new("ScreenGui")
+				screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	
+				-- Create the notification frame
+				local notificationFrame = Instance.new("Frame")
+				notificationFrame.Size = UDim2.new(0, 300, 0, 50)
+				notificationFrame.Position = UDim2.new(0.5, -150, 1, 0) -- Start below the screen
+				notificationFrame.AnchorPoint = Vector2.new(0.5, 1)
+				notificationFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+				notificationFrame.BorderSizePixel = 0
+				notificationFrame.Parent = screenGui
+	
+				-- Create a label for the message
+				local messageLabel = Instance.new("TextLabel")
+				messageLabel.Size = UDim2.new(1, 0, 1, 0)
+				messageLabel.Position = UDim2.new(0, 0, 0, 0)
+				messageLabel.BackgroundTransparency = 1
+				messageLabel.Text = message
+				messageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+				messageLabel.Font = Enum.Font.Gotham
+				messageLabel.TextScaled = true
+				messageLabel.Parent = notificationFrame
+	
+				-- Tween the notification into view
+				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+				local tweenPosition = TweenService:Create(notificationFrame, tweenInfo, {Position = UDim2.new(0.5, -150, 0.9, 0)})
+				tweenPosition:Play()
+	
+				-- Wait a bit and then tween it out of view
+				wait(2)
+				local tweenOut = TweenService:Create(notificationFrame, tweenInfo, {Position = UDim2.new(0.5, -150, 1, 0)})
+				tweenOut:Play()
+	
+				-- Destroy the ScreenGui after the tween
+				tweenOut.Completed:Connect(function()
+					screenGui:Destroy()
+				end)
+			end
+	
+			-- Function to handle the button click
+			local function onButtonClick()
+				-- Copy the link to clipboard
+				copyToClipboard(linkToCopy)
+	
+				-- Show the notification
+				createNotification("Link copied to clipboard!")
+			end
+	
+			-- Connect the button click event
+			local button = script.Parent -- Assuming this script is inside the button
+			button.MouseButton1Click:Connect(onButtonClick)
+	
+		end)
+	end
+	coroutine.wrap(WVDCLZ_fake_script)()
+	local function COWU_fake_script() -- TextBox.LocalScript 
+		local script = Instance.new('LocalScript', TextBox)
+	
+	
+	end
+	coroutine.wrap(COWU_fake_script)()
+	local function HWPY_fake_script() -- ad.LocalScript 
+		local script = Instance.new('LocalScript', ad)
+	
+	
+	end
+	coroutine.wrap(HWPY_fake_script)()
+	local function IGYOYB_fake_script() -- ad.LocalScript 
+		local script = Instance.new('LocalScript', ad)
+	
+	
+	end
+	coroutine.wrap(IGYOYB_fake_script)()
+	local function SVUYV_fake_script() -- Frame_3.LocalScript 
+		local script = Instance.new('LocalScript', Frame_3)
+	
+	
+	
+		while true do 
+			wait(1)
+			local Players = game:GetService("Players")
+			local RunService = game:GetService("RunService")
+			local TweenService = game:GetService("TweenService")
+			local Workspace = game:GetService("Workspace")
+			local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	
+			local player = Players.LocalPlayer
+			local character = player.Character or player.CharacterAdded:Wait()
+			local humanoid = character:WaitForChild("Humanoid")
+			local rootPart = character:WaitForChild("HumanoidRootPart")
+	
+			local targetPlayer
+			local headSit
+			local sitConnection
+			local messageCounter = 0
+			local targetPositionBackup
+			local originalPosition -- Variable to store the original position
+	
+			local textbox = script.Parent:WaitForChild("TextBox") -- Replace with the path to your TextBox
+			local enterButton = script.Parent:WaitForChild("ad") -- Replace with the path to your Enter Button
+	
+			local isChatting = false
+			local isSpinning = false
+			local isSitting = false
+			local isVerticalMovementEnabled = true -- Flag to control vertical movement
+	
+		
+			local function findPlayerByPartialName(partialName)
+				local players = Players:GetPlayers()
+				for _, otherPlayer in ipairs(players) do
+					if otherPlayer.Name:lower():sub(1, #partialName) == partialName:lower() then
+						return otherPlayer
+					end
+				end
+				return nil
+			end
+	
+		
+			local function getSafePosition(position)
+				local ray = Ray.new(position + Vector3.new(0, 10, 0), Vector3.new(0, -20, 0))
+				local hitPart, hitPosition = Workspace:FindPartOnRay(ray)
+				if hitPart then
+					return hitPosition + Vector3.new(0, 1, 0)
+				else
+					return position
+				end
+			end
+	
+			-- Function to dive onto the target player's HumanoidRootPart
+			local function diveOntoPlayer(target)
+				if not target or not target.Character or not target.Character:FindFirstChild("HumanoidRootPart") then
+					return
+				end
+	
+				targetPositionBackup = target.Character.HumanoidRootPart.Position
+				originalPosition = rootPart.Position -- Store original position before diving
+				local targetPosition = getSafePosition(targetPositionBackup)
+	
+				local diveTween = TweenService:Create(
+					rootPart,
+					TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+					{CFrame = CFrame.new(targetPosition + Vector3.new(0, 5, 0))}
+				)
+	
+				diveTween:Play()
+				diveTween.Completed:Connect(function()
+					rootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1.6, 0.4)
+					humanoid.Sit = true
+					isSitting = true
+					isVerticalMovementEnabled = true
+					tweenUpAndDown()
+					headSit = RunService.Heartbeat:Connect(function()
+						if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") and humanoid.Sit then
+							rootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1.6, 0.4)
+						else
+							headSit:Disconnect()
+						end
+					end)
+				end)
+			end
+	
+			-- Function to spin and look at the target player for a longer duration
+			local function spinAndLook(target, duration)
+				if isSpinning then return end
+				isSpinning = true
+	
+				local startTime = tick()
+				local spinTween = TweenService:Create(
+					rootPart,
+					TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+					{CFrame = CFrame.new(target.Character.HumanoidRootPart.Position)}
+				)
+	
+				spinTween:Play()
+				spinTween.Completed:Connect(function()
+					isSpinning = false
+					chatFunnyMessage(target.Name) -- Ensure chat happens after spinning completes
+				end)
+			end
+	
+	
+			local function sitOnTarget(target)
+				if sitConnection then sitConnection:Disconnect() end
+				isSitting = true
+				isVerticalMovementEnabled = true
+				sitConnection = RunService.Heartbeat:Connect(function()
+					if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+						local targetCFrame = target.Character.HumanoidRootPart.CFrame
+	
+						if isVerticalMovementEnabled then
+							local amplitude = 2.2
+							local frequency = (messageCounter > 4) and 6 or 16
+							local heightOffset = math.sin(tick() * frequency) * amplitude
+							local leanForwardCFrame = targetCFrame * CFrame.Angles(math.rad(-90), 0, 0)
+							rootPart.CFrame = leanForwardCFrame * CFrame.new(0, 1.6 + heightOffset, -1)
+						else
+							rootPart.CFrame = targetCFrame * CFrame.new(0, 1.6, -1)
+						end
+					else
+						wait(1)
+						if isSitting then
+							sitConnection:Disconnect()
+							isSitting = false
+						end
+					end
+				end)
+			end
+	
+			-- Function to play a specific animation
+			local function playAnimation()
+				local animationId = "rbxassetid://188632011"
+				local animation = Instance.new("Animation")
+				animation.AnimationId = animationId
+	
+				local animationTrack = humanoid:LoadAnimation(animation)
+				if animationTrack then
+					print("Animation loaded successfully.")
+					animationTrack:AdjustSpeed(5)
+					animationTrack:Play()
+					wait(0.5)
+				else
+					print("Error: Could not load animation with ID: " .. animationId)
+				end
+			end
+	
+			-- Function to chat funny messages
+			local function chatFunnyMessage(targetName)
+				if isChatting then return end
+				isChatting = true
+	
+				local messages = {
+					"Watch out, " .. targetName .. "! 😆",
+					"You're DONE, " .. targetName .. "! 😎",
+					"Get ready, " .. targetName .. "! 😂",
+					"Incoming! " .. targetName .. "!!! 🤪",
+					"Feeling the rizz, " .. targetName .. "! 😜"
+				}
+	
+				for _, message in ipairs(messages) do
+					ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+					wait(1)
+				end
+	
+				isChatting = false
+				-- Call stopSitting after chatting is done
+				stopSitting()
+	
+				-- Wait for 0.5 seconds then set the humanoid health to 0
+				wait(0.5)
+				humanoid.Health = 0
+			end
+	
+			-- Autocomplete functionality
+			local function updateTextboxSuggestions()
+				local partialName = textbox.Text
+				if #partialName > 3 then
+					local player = findPlayerByPartialName(partialName)
+					if player then
+						textbox.Text = player.Name
+					end
+				end
+			end
+	
+			-- Event handler for text input
+			textbox:GetPropertyChangedSignal("Text"):Connect(updateTextboxSuggestions)
+	
+			-- Event handler for pressing the Enter button
+			enterButton.MouseButton1Click:Connect(function()
+				local partialName = textbox.Text
+				if partialName and partialName ~= "" then
+					targetPlayer = findPlayerByPartialName(partialName)
+	
+					if targetPlayer then
+						playAnimation()
+						spinAndLook(targetPlayer, 3)
+						diveOntoPlayer(targetPlayer)
+						sitOnTarget(targetPlayer)
+					else
+						ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("No player found with the name: " .. partialName, "All")
+					end
+				end
+			end)
+	
+			-- Function to stop sitting and tween back to the original position
+			local function stopSitting()
+				if isSitting then
+					isSitting = false
+					isVerticalMovementEnabled = false -- Disable vertical movement
+					if sitConnection then
+						sitConnection:Disconnect()
+						sitConnection = nil
+					end
+					humanoid.Sit = false
+	
+					-- Tween back to the original position
+					local returnTween = TweenService:Create(
+						rootPart,
+						TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+						{CFrame = CFrame.new(originalPosition)}
+					)
+	
+					returnTween:Play()
+					returnTween.Completed:Connect(function()
+						-- Optional: Reset orientation if needed
+						rootPart.CFrame = CFrame.new(originalPosition)
+					end)
+				end
+			end
+	
+		end
+	
+	end
+	coroutine.wrap(SVUYV_fake_script)()
+	local function DSKON_fake_script() -- re.LocalScript 
+		local script = Instance.new('LocalScript', re)
+	
+		script.Parent.MouseButton1Down:Connect(function()
+			local player = game.Players.LocalPlayer
+	
+			-- Wait for the player's character to load
+			local character = player.Character or player.CharacterAdded:Wait()
+	
+			-- Wait for the Humanoid to be present in the character
+			local humanoid = character:WaitForChild("Humanoid")
+	
+			-- Set the Humanoid's health to 0
+			humanoid.Health = 0
+	
+		end)
+	
+	end
+	coroutine.wrap(DSKON_fake_script)()
+	local function YOMAN_fake_script() -- re.LocalScript 
+		local script = Instance.new('LocalScript', re)
+	
+	
+	end
+	coroutine.wrap(YOMAN_fake_script)()
+	local function RWEGW_fake_script() -- Frame.LocalScript 
+		local script = Instance.new('LocalScript', Frame)
+	
+		local frame = script.Parent
+	
+	
+	
+		local player = game.Players.LocalPlayer
+	
+	
+	
+		local userId = player.UserId
+	
+		local thumbType = Enum.ThumbnailType.AvatarBust
+	
+		local thumbSize = Enum.ThumbnailSize.Size420x420
+	
+		local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+	
+	
+	
+	
+	
+		frame.PlayerImage.Image = content
+	
+		frame.PlayerName.Text = player.Name
+	end
+	coroutine.wrap(RWEGW_fake_script)()
+	local function UZLXPYT_fake_script() -- Frame.LocalScript 
+		local script = Instance.new('LocalScript', Frame)
+	
+		local UIS = game:GetService('UserInputService')
+		local frame = script.Parent
+		local dragToggle = nil
+		local dragSpeed = 0.25 -- the amount of speed you want the drag to be
+		local dragStart = nil
+		local startPos = nil
+	
+		local function updateInput(input)
+			local delta = input.Position - dragStart
+			local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+				startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+		end
+	
+		frame.InputBegan:Connect(function(input)
+			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+				dragToggle = true
+				dragStart = input.Position
+				startPos = frame.Position
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragToggle = false
+					end
+				end)
+			end
+		end)
+	
+		UIS.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				if dragToggle then
+					updateInput(input)
+				end
+			end
+		end)
+	end
+	coroutine.wrap(UZLXPYT_fake_script)()
+	local function MTJEQ_fake_script() -- Frame.LocalScript 
+		local script = Instance.new('LocalScript', Frame)
+	
+		-- Services
+		local TweenService = game:GetService("TweenService")
+	
+		-- Frame reference (assumes this script is inside the frame)
+		local frame = script.Parent
+	
+		-- Original size and position
+		local originalSize = frame.Size
+		local originalPosition = frame.Position
+	
+		-- Function to perform the tween animations
+		local function tweenFrame()
+			-- Start position at the top of the screen
+			frame.Position = UDim2.new(0.5, 0, 0, -frame.AbsoluteSize.Y)
+			frame.AnchorPoint = Vector2.new(0.5, 0)
+	
+			-- Tween to the middle of the screen
+			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+			local middlePosition = UDim2.new(0.5, 0, 0.5, 0) -- Middle of the screen
+	
+			local tweenToMiddle = TweenService:Create(frame, tweenInfo, {Position = middlePosition})
+			tweenToMiddle:Play()
+	
+			tweenToMiddle.Completed:Connect(function()
+				-- Perform bubble animation (grow larger then back to original size)
+				local bubbleSize = UDim2.new(originalSize.X.Scale * 1.2, originalSize.X.Offset * 1.2, originalSize.Y.Scale * 1.2, originalSize.Y.Offset * 1.2)
+	
+				local tweenBubbleOut = TweenService:Create(frame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = bubbleSize})
+				local tweenBubbleIn = TweenService:Create(frame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Size = originalSize})
+	
+				tweenBubbleOut:Play()
+				tweenBubbleOut.Completed:Connect(function()
+					tweenBubbleIn:Play()
+				end)
+			end)
+		end
+	
+		-- Run the tween animation when the script runs
+		tweenFrame()
+	
+	end
+	coroutine.wrap(MTJEQ_fake_script)()
+	local function KSBO_fake_script() -- ImageButton_2.LocalScript 
+		local script = Instance.new('LocalScript', ImageButton_2)
+	
+		script.Parent.MouseButton1Down:Connect(function()
+			-- Services
+			local TweenService = game:GetService("TweenService")
+	
+			-- Button reference (this script should be inside the button)
+			local button = script.Parent
+	
+			-- Frame reference (parent of the button)
+			local frame = button.Parent
+	
+			-- Function to tween the frame to a smaller size and then disappear
+			local function tweenAndDisappear()
+				-- Tween to a smaller size
+				local smallSize = UDim2.new(0, 0, 0, 0)
+				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+	
+				local tweenToSmall = TweenService:Create(frame, tweenInfo, {Size = smallSize, Position = frame.Position + UDim2.new(0.5, 0, 0.5, 0)})
+	
+				tweenToSmall:Play()
+	
+				tweenToSmall.Completed:Connect(function()
+					-- Make the frame invisible after the tween completes
+					frame.Visible = false
+				end)
+			end
+	
+			-- Connect the function to the button click
+			button.MouseButton1Click:Connect(tweenAndDisappear)
+	
+		end)
+	end
+	coroutine.wrap(KSBO_fake_script)()
+	local function UYANIE_fake_script() -- ScreenGui.LocalScript 
+		local script = Instance.new('LocalScript', ScreenGui)
+	
+		script.Parent.ResetOnSpawn = false
+	end
+	coroutine.wrap(UYANIE_fake_script)()
+	
 end
+coroutine.wrap(BKTAOE_fake_script)()
+local function JLVASLW_fake_script() -- TextLabel.LocalScript 
+	local script = Instance.new('LocalScript', TextLabel)
 
-Players.PlayerAdded:Connect(function(player)
-    task.wait(1)
-    if blacklistLoop then
-        addToBlacklist(player)
-    end
-end)
-
-local function startBlacklist()
-    if not blacklistLoop then
-        blacklistLoop = true
-        spawn(checkForNewPlayers)
-    end
+	wait(12)
+	script.Parent:Destroy()
 end
-
-local function stopBlacklist()
-    if blacklistLoop then
-        blacklistLoop = false
-        for _, player in ipairs(Players:GetPlayers()) do
-            removeFromBlacklist(player)
-        end
-    end
-end
-
-loaded()
-wait(0.5)
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sinonagsabingganon/Hahahahahha/refs/heads/main/Kavo%20UI%20No%20Close%20Button"))()
-local Window = Library.CreateLib("Menace Hub", "DarkTheme")
-local Tab = Window:NewTab("Menace Scripts")
-local Section = Tab:NewSection("Trolling Scripts")
-
-Section:NewButton("Sus Missile (Head Bang)", "Run Sus Missile Headbang", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Aojfbrkalckspkfndns/Aofjdbbssk/refs/heads/main/dfjhgksiuwesgihkb'))()
-    print("Executed Sus Missile!")
-end)
-
-Section:NewButton("Infinite Yield", "Run Infinite Yield", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    print("Executed Infinite Yield!")
-end)
-
-local Tab = Window:NewTab("RMA Trolling Booth")
-local Section = Tab:NewSection("Trolling Booth")
-Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
-    Library:ToggleUI()
-end)
-Section:NewButton("FE Fake Blacklist All", "Fe Fake Blacklist All Players", function()
-    DescText("Aint no way yall think this is real blacklist lol")
-    fakeblacklistallplrs()
-    startBlacklist()
-end)
-
-Section:NewButton("FE Fake Unblacklist All", "FE Fake Unblacklist All Players", function()
-    DescText("lolol")
-    fakeunblacklistallplrs()
-    stopBlacklist()
-end)
-Section:NewButton("Blacklist All", "Blacklist all players", function()
-    blacklistallplrs()
-    blacklistAll()
-end)
-
-Section:NewButton("Unblacklist All", "Unblacklist all players", function()
-    unblacklistallplrs()
-    unblacklistAll()
-end)
-Section:NewButton("Destroy Stage Barrier", "Destroy Stage Barrier.", function()
-    local part = workspace:FindFirstChild("GroupAccessPart")
-
-    if part then
-        part:Destroy()
-        print("Stage barrier has been destroyed.")
-    else
-        print("Stage barrier has already been destroyed.")
-    end
-end)
-wait(1)
-settoggle()
+coroutine.wrap(JLVASLW_fake_script)()
