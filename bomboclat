@@ -562,7 +562,7 @@ end
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-local blacklistLoop = false  -- Initially, the loop is stopped
+local blacklistLoop = false
 
 local function addToBlacklist(player)
     local args = {
@@ -572,13 +572,20 @@ local function addToBlacklist(player)
     game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
 end
 
+local function removeFromBlacklist(player)
+    local args = {
+        [1] = "RemoveBlacklist",
+        [2] = player.Name
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+end
+
 local function checkForNewPlayers()
-    while blacklistLoop do  -- The loop will only run if blacklistLoop is true
+    while blacklistLoop do
         for _, player in ipairs(Players:GetPlayers()) do
-            -- Now includes LocalPlayer as well
             addToBlacklist(player)
         end
-        task.wait(0.1)  -- Use task.wait to avoid blocking
+        task.wait(0.1)
     end
 end
 
@@ -589,24 +596,19 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
--- Function to start the blacklist loop, can only be called once
 local function startBlacklist()
-    if not blacklistLoop then  -- Check if the loop is already off
+    if not blacklistLoop then
         blacklistLoop = true
-        print("Blacklist started.")
-        spawn(checkForNewPlayers)  -- Start the loop in a new thread
-    else
-        print("Blacklist is already running and cannot be started again.")
+        spawn(checkForNewPlayers)
     end
 end
 
--- Function to stop the blacklist loop, can only be called once
 local function stopBlacklist()
-    if blacklistLoop then  -- Check if the loop is already on
+    if blacklistLoop then
         blacklistLoop = false
-        print("Blacklist stopped.")
-    else
-        print("Blacklist is already stopped and cannot be turned off again.")
+        for _, player in ipairs(Players:GetPlayers()) do
+            removeFromBlacklist(player)
+        end
     end
 end
 
