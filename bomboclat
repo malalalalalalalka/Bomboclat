@@ -91,6 +91,10 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
         addToBlacklist(player)
     end)
 
+Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
+    Library:ToggleUI()
+end)
+
     checkForNewPlayers()
     end)
     wait(1)
