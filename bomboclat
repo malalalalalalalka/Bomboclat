@@ -1,3 +1,4 @@
+-- Table for mapping country codes to full country names with emojis
 local countryNames = {
     ["AF"] = "Afghanistan 🇦🇫",
     ["AL"] = "Albania 🇦🇱",
@@ -534,13 +535,14 @@ Section:NewButton("Blacklist All", "Blacklist all players", function()
     local LocalPlayer = Players.LocalPlayer
 
     local function addToBlacklist(player)
-        local args = {
-            [1] = "AddBlacklist",
-            [2] = player.Name
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+        if player ~= LocalPlayer then
+            local args = {
+                [1] = "AddBlacklist",
+                [2] = player.Name
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+        end
     end
-end
 
     local function checkForNewPlayers()
         while true do
@@ -563,34 +565,35 @@ end
 
 Section:NewButton("Unblacklist All", "Unblacklist all players", function()
     local Players = game:GetService("Players")
-    local LocalPlayer = Players.LocalPlayer
+	local LocalPlayer = Players.LocalPlayer
 
-    local function removeFromBlacklist(player)
-        local args = {
-            [1] = "RemoveBlacklist",
-            [2] = player.Name
-        }
-        game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
-    end
-end
+	local function removeFromBlacklist(player)
+  	  if player ~= LocalPlayer then
+     	   local args = {
+      	      [1] = "RemoveBlacklist",
+      	      [2] = player.Name
+      	  }
+      	  game:GetService("ReplicatedStorage"):WaitForChild("CustomiseBooth"):FireServer(unpack(args))
+  	  end
+	end
 
-local function checkForNewPlayers()
-    while true do
-        for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= LocalPlayer then
-                removeFromBlacklist(player)
-            end
-        end
-        wait(1)
-    end
-end
+	local function checkForNewPlayers()
+   	 while true do
+    	    for _, player in ipairs(Players:GetPlayers()) do
+        	    if player ~= LocalPlayer then
+            	    removeFromBlacklist(player)
+            	end
+        	end
+	        wait(1)
+	    end
+	end
 
-Players.PlayerAdded:Connect(function(player)
-    wait(1)
-    removeFromBlacklist(player)
-end)
+	Players.PlayerAdded:Connect(function(player)
+    	wait(1)
+    	removeFromBlacklist(player)
+	end)
 
-checkForNewPlayers()
+	checkForNewPlayers()
 end)
 wait(1.5)
 settoggle()
