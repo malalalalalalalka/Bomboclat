@@ -583,7 +583,9 @@ end
 local function checkForNewPlayers()
     while blacklistLoop do
         for _, player in ipairs(Players:GetPlayers()) do
-            addToBlacklist(player)
+            if blacklistLoop then  -- Only add if the loop is still running
+                addToBlacklist(player)
+            end
         end
         task.wait(0.1)
     end
