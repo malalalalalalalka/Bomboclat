@@ -443,6 +443,21 @@ if _G.MenaceHub then
 end
 
 _G.MenaceHub = true
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local targetGameId = 6708206173
+
+if game.PlaceId == targetGameId then
+    game.Workspace.DescendantAdded:Connect(function(Object)
+        game:GetService("RunService").Stepped:Wait()
+        
+        if not string.find(Object.Name, "BarrierFor") then return end
+        
+        Object.CFrame = CFrame.new(9e9, 9e9, 9e9)
+    end)
+end
+
 loading()
 wait(2)
 local function settoggle()
@@ -674,11 +689,13 @@ Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, functi
     Library:ToggleUI()
 end)
 Section:NewButton("FE Fake Blacklist All", "Fe Fake Blacklist All Players", function()
+    DescText("Aint no way yall think this is real blacklist lol")
     fakeblacklistallplrs()
     startBlacklist()
 end)
 
 Section:NewButton("FE Fake Unblacklist All", "FE Fake Unblacklist All Players", function()
+    DescText("lolol")
     fakeunblacklistallplrs()
     stopBlacklist()
 end)
