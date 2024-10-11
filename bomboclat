@@ -344,7 +344,7 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
 	ad_2.TextWrapped = true
 	
 	-- Scripts
-	
+	local Players = game:GetService("Players")
     local function scanPlayers(query)
         local players = Players:GetPlayers()
         local matches = {}
@@ -388,7 +388,7 @@ local function BKTAOE_fake_script() -- Warper.LocalScript
             end
         end
     end)
-    
+
 	local function ORDEQXB_fake_script() -- TextButton.LocalScript 
 		local script = Instance.new('LocalScript', TextButton)
 	
