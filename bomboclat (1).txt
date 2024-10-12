@@ -650,6 +650,15 @@ local function stopBlacklist()
         end
     end
 end
+local function antiblacklist()
+    game.Workspace.DescendantAdded:Connect(function(Object)
+        game.RunService.Stepped:Wait()
+
+        if not string.find(Object.Name, "BarrierFor") then return end
+        
+        Object.CFrame = CFrame.new(9e9, 9e9, 9e9)
+    end)
+end
 
 loaded()
 wait(0.5)
@@ -670,9 +679,6 @@ end)
 
 local Tab = Window:NewTab("RMA Trolling Booth")
 local Section = Tab:NewSection("Trolling Booth")
-Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
-    Library:ToggleUI()
-end)
 Section:NewButton("FE Fake Blacklist All", "Fe Fake Blacklist All Players", function()
     fakeblacklistallplrs()
     startBlacklist()
@@ -700,6 +706,12 @@ Section:NewButton("Destroy Stage Barrier", "Destroy Stage Barrier.", function()
     else
         print("Stage barrier has already been destroyed.")
     end
+end)
+Section:NewButton("Anti-Blacklist", "Protect you from blacklist function.", function()
+    antiblacklist()
+end)
+Section:NewKeybind("Toggle UI", "Open or Close the UI.", Enum.KeyCode.F6, function()
+    Library:ToggleUI()
 end)
 wait(1)
 settoggle()
