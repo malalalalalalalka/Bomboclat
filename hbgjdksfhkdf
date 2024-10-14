@@ -1,0 +1,211 @@
+local allowedUsernames = {"a55af82d82574", "aldrinitono", "7e9acc98db2622a3bd", "SonicTheHeadTop"}
+
+local function containsLocalPlayerNameOrAll(message)
+    local player = game.Players.LocalPlayer
+    local username = player.Name:lower()
+    local displayName = player.DisplayName:lower()
+    local messageLower = message:lower()
+
+    return messageLower:find(username) or messageLower:find(displayName) or messageLower:find("all")
+end
+
+local function isAllowedUser(sender)
+    for _, username in ipairs(allowedUsernames) do
+        if sender.Name == username then
+            return true
+        end
+    end
+    return false
+end
+
+local function sendChatMessage(message)
+    local args = {
+        [1] = message,
+        [2] = "All"
+    }
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+end
+
+local commands = {
+    ["!kick"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Kick command detected and function triggered")
+            player:Kick("You have been kicked by the owner.")
+        else
+            print("Unauthorized attempt to execute !kick command.")
+        end
+    end,
+    ["!summon"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Summon command detected and function triggered")
+            local targetPlayer = sender
+            if targetPlayer and targetPlayer.Character then
+                local targetPos = targetPlayer.Character.HumanoidRootPart.Position
+                local radius = 10
+                local randomAngle = math.random() * 2 * math.pi
+                local randomRadius = math.random() * radius
+                local offset = Vector3.new(
+                    randomRadius * math.cos(randomAngle),
+                    0,
+                    randomRadius * math.sin(randomAngle)
+                )
+                local newPos = targetPos + offset
+                local speaker = game.Players.LocalPlayer
+                if speaker.Character and speaker.Character:FindFirstChild("HumanoidRootPart") then
+                    speaker.Character:MoveTo(newPos)
+                end
+                local function stareFunc(targetPlayer)
+                    if targetPlayer ~= speaker then
+                        if targetPlayer.Character and speaker.Character then
+                            local chrPos = speaker.Character.PrimaryPart.Position
+                            local tPos = targetPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+                            local modTPos = Vector3.new(tPos.X, chrPos.Y, tPos.Z)
+                            local newCF = CFrame.new(chrPos, modTPos)
+                            speaker.Character:SetPrimaryPartCFrame(newCF)
+                        end
+                    end
+                end
+                local startTime = tick()
+                local stareLoop
+                stareLoop = game:GetService("RunService").RenderStepped:Connect(function()
+                    stareFunc(targetPlayer)
+                    if tick() - startTime > 3 then
+                        stareLoop:Disconnect()
+                    end
+                end)
+            end
+            wait(0.5)
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+                "Your servant has arrived, my lord. How may I assist thee?",
+                "All"
+            )
+        else
+            print("Unauthorized attempt to execute !summon command.")
+        end
+    end,
+    ["!freeze"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Freeze command detected and function triggered")
+            local character = player.Character
+            if character then
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") and not part.Anchored then
+                        part.Anchored = true
+                    end
+                end
+            end
+        else
+            print("Unauthorized attempt to execute !freeze command.")
+        end
+    end,
+    ["!unfreeze"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Unfreeze command detected and function triggered")
+            local character = player.Character
+            if character then
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") and part.Anchored then
+                        part.Anchored = false
+                    end
+                end
+            end
+        else
+            print("Unauthorized attempt to execute !unfreeze command.")
+        end
+    end,
+    ["!say"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Say command detected and function triggered")
+            local _, _, target, text = message:find("!say%s+([^%s]+)%s+(.+)")
+            if text then
+                local targetLower = target:lower()
+                local playerNameLower = player.Name:lower()
+                local playerDisplayNameLower = player.DisplayName:lower()
+                if targetLower == "all" or targetLower == playerNameLower or targetLower == playerDisplayNameLower then
+                    print("Message to say: ", text)
+                    sendChatMessage(text)
+                else
+                    print("Unauthorized target for !say command.")
+                end
+            else
+                print("Invalid syntax. Use !say <target> <message>")
+            end
+        else
+            print("Unauthorized attempt to execute !say command.")
+        end
+    end,
+    ["!kill"] = function(sender, message)
+        local player = game.Players.LocalPlayer
+        if containsLocalPlayerNameOrAll(message) and isAllowedUser(sender) and not isAllowedUser(player) then
+            print("Kill command detected and function triggered")
+            local character = player.Character
+            if character and character:FindFirstChild("Humanoid") then
+                character.Humanoid.Health = 0
+            end
+        else
+            print("Unauthorized attempt to execute !kill command.")
+        end
+    end
+}
+
+local function onCommandDetected(command, sender, message)
+    if commands[command] then
+        commands[command](sender, message)
+    else
+        print("Unknown command: " .. command)
+    end
+end
+
+local function onPlayerChatted(otherPlayer, message)
+    print("Message received from: ", otherPlayer.Name, " Message: ", message)
+    for command, _ in pairs(commands) do
+        if message:find(command) then
+            onCommandDetected(command, otherPlayer, message)
+            break
+        end
+    end
+end
+
+local connectedPlayers = {}
+
+local function connectPlayerChatEvent(targetPlayer)
+    print("Connecting chat event for: ", targetPlayer.Name)
+    if connectedPlayers[targetPlayer] then
+        connectedPlayers[targetPlayer]:Disconnect()
+    end
+    connectedPlayers[targetPlayer] = targetPlayer.Chatted:Connect(function(message)
+        onPlayerChatted(targetPlayer, message)
+    end)
+end
+
+local function monitorAllowedUsers()
+    for _, username in ipairs(allowedUsernames) do
+        local targetPlayer = game.Players:FindFirstChild(username)
+        if targetPlayer then
+            connectPlayerChatEvent(targetPlayer)
+        end
+    end
+
+    game.Players.PlayerAdded:Connect(function(newPlayer)
+        for _, username in ipairs(allowedUsernames) do
+            if newPlayer.Name == username then
+                print("An allowed user joined the game: " .. username)
+                connectPlayerChatEvent(newPlayer)
+            end
+        end
+    end)
+
+    game.Players.PlayerRemoving:Connect(function(leavingPlayer)
+        if connectedPlayers[leavingPlayer] then
+            connectedPlayers[leavingPlayer]:Disconnect()
+            connectedPlayers[leavingPlayer] = nil
+        end
+    end)
+end
+
+monitorAllowedUsers()
